@@ -58,10 +58,9 @@ struct GameSimulationView: View {
                         destination: TutorialView()
                     )
                     
+
                     
-                    Spacer()
                 }
-                .navigationTitle("")
                 .navigationBarTitleDisplayMode(.inline)
             }
         }

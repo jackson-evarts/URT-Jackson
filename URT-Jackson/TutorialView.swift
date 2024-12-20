@@ -43,7 +43,7 @@ struct TutorialView: View {
                 destination: GameSimulationView()
             )
         }
-        .navigationTitle("Tutorial")
+        .navigationTitle("")
     }
 }
 

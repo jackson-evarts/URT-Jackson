@@ -30,7 +30,7 @@ struct ContentView: View {
                         .frame(maxWidth: 200, maxHeight: 200) // Sets a reasonable size limit for the image
                         .frame(maxWidth: .infinity) // Ensures the image is centered horizontally
 
-                    
+                    Spacer()
                     
                     CustomNavButton(
                         text: "Settings",
@@ -48,11 +48,11 @@ struct ContentView: View {
                     // TODO: Bronco Trainer Button (disabled)
                     Spacer()
                 }
-                .padding() // Add padding to avoid content getting too close to the edges
             }
             .navigationTitle("")
-            .navigationBarTitleDisplayMode(.inline)
         }
+        .tint(.primaryGold) // Set the tint color for navigation elements
+
     }
 }
 

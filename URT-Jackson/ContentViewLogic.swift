@@ -48,13 +48,12 @@ struct JustifiedText: View {
     var text: String // Single block of text
 
     var body: some View {
-        ScrollView { // Enables scrolling for long text
-            Text(text)
-                .font(.custom("Futura", size: 20))
-                .multilineTextAlignment(.leading) // Justifies the text
-                .padding(.horizontal, 20) // Pads off the sides of the screen
-                .lineLimit(nil) // Ensures no truncation
-        }
+        Text(text)
+            .font(.custom("Futura", size: 20))
+            .multilineTextAlignment(.leading) // Justifies the text
+            .padding(.horizontal, 20) // Pads off the sides of the screen
+            .lineLimit(nil) // Ensures no truncation
+        
     }
 }
 
