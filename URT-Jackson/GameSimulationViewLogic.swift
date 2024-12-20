@@ -16,8 +16,6 @@ struct BouncingSlider: View {
     
     var thumbSize: CGFloat = 20 // Size of the thumb
     
-    
-    
     @State private var isDragging: Bool = false // To track if the user is dragging
     
     var body: some View {
@@ -28,22 +26,22 @@ struct BouncingSlider: View {
             ZStack(alignment: .leading) {
                 // Track background
                 Rectangle()
-                    .fill(Color.gray.opacity(0.5))
+                    .fill(Color.lightGrey.opacity(0.5))
                     .frame(height: 6)
                     .cornerRadius(3)
                 
                 // Filled track
                 Rectangle()
-                    .fill(Color.redUSA)
+                    .fill(Color.primaryGold)
                     .frame(width: thumbPosition + thumbSize / 2, height: 6)
                     .cornerRadius(3)
                 
                 // Thumb (draggable)
                 Circle()
-                    .fill(Color.redUSA)
+                    .fill(Color.primaryGold)
                     .frame(width: thumbSize, height: thumbSize)
                     .overlay(
-                        Circle().stroke(Color.darkBlueUSA, lineWidth: 3.5) // Add border to thumb
+                        Circle().stroke(Color.charcoalGrey, lineWidth: 3.5) // Add border to thumb
                     )
                     .offset(x: thumbPosition)
                     .gesture(
@@ -68,4 +66,3 @@ struct BouncingSlider: View {
         .frame(height: 40) // Height of the slider
     }
 }
-

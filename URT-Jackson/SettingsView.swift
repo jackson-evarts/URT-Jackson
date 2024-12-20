@@ -8,11 +8,29 @@
 import SwiftUI
 
 extension Color {
-    static let D1 = Color.white
-    static let lightBlueUSA = Color(UIColor(red: 133/255, green: 133/255, blue: 164/255, alpha: 1))  // #8585a4
-    static let midBlueUSA = Color(UIColor(red: 116/255, green: 112/255, blue: 148/255, alpha: 1))  // #747094
-    static let darkBlueUSA = Color(UIColor(red: 60/255, green: 60/255, blue: 108/255, alpha: 1))  // #3c3c6c
-    static let redUSA = Color(UIColor(red: 180/255, green: 36/255, blue: 52/255, alpha: 1))  // #b42434
+    static let primaryGold = Color(hex: "#DAA520") // Goldenrod
+    static let softGold = Color(hex: "#FFD700")    // Gold
+    static let mutedGold = Color(hex: "#B8860B")   // Dark Goldenrod
+
+    static let lightGrey = Color(hex: "#F5F5F5")   // White Smoke
+    static let neutralGrey = Color(hex: "#D3D3D3") // Light Grey
+    static let darkGrey = Color(hex: "#696969")    // Dim Grey
+    static let charcoalGrey = Color(hex: "#333333") // Dark Grey
+
+    // Helper initializer for HEX values
+    init(hex: String) {
+        let scanner = Scanner(string: hex)
+        _ = scanner.scanString("#")
+
+        var rgb: UInt64 = 0
+        scanner.scanHexInt64(&rgb)
+
+        let red = Double((rgb >> 16) & 0xFF) / 255.0
+        let green = Double((rgb >> 8) & 0xFF) / 255.0
+        let blue = Double(rgb & 0xFF) / 255.0
+
+        self.init(red: red, green: green, blue: blue)
+    }
 }
 
 struct SettingsView: View {

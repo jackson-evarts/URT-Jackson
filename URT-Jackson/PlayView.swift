@@ -54,7 +54,7 @@ struct PlayView: View {
             print("The game: \(gameList)")
         
             // Animate the color change to black when the view appears
-            backgroundColor = Color.lightBlueUSA
+            backgroundColor = Color.white
             withAnimation(.easeInOut(duration: 3)) {
                 backgroundColor = Color.black
             }
