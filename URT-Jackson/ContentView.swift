@@ -19,7 +19,6 @@ struct ContentView: View {
                 VStack(spacing: 20) {
                     Spacer()
                     
-                    // Display the image
                     TitlePage(title: "The\nUltimate Rugby Trainer")
                     
                     Spacer()
@@ -32,20 +31,24 @@ struct ContentView: View {
 
                     Spacer()
                     
+                    /*
                     CustomNavButton(
                         text: "Settings",
                         destination: SettingsView()
                     )
+                     */
                     
                     CustomNavButton(
                         text: "Game Simulation",
                         destination: GameSimulationView()
                     )
                     
-                    
+                    CustomNavButton(
+                        text: "Bronco Menu",
+                        destination: BroncoMenuView()
+                    )
 
 
-                    // TODO: Bronco Trainer Button (disabled)
                     Spacer()
                 }
             }
