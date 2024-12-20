@@ -15,19 +15,30 @@ struct TutorialView: View {
                     TitlePage(title: "Tutorial Page")
                         .padding(.bottom, 20)
                     
-                    FullWidthTextStripe(text: "1. Select your intensity")
+                    FullWidthTextStripe(text: "Setup.")
+
+                    FullWidthTextStripe(text: "X. If you are a kicker:")
+                    JustifiedText(text: "Setup balls on the midfield for restarts and both try-zones on different widths.")
+
                     JustifiedText(text: "Note: Your Intensity selection dictates how many events occur during your session. A higher intensity correlates to less scrums and more linebreaks.")
                     
-                    FullWidthTextStripe(text: "2. Press play!")
+                    FullWidthTextStripe(text: "X. Select your intensity:")
+                    JustifiedText(text: "Note: Your Intensity selection dictates how many events occur during your session. A higher intensity correlates to less scrums and more linebreaks.")
                     
-                    FullWidthTextStripe(text: "3. If you hear linebreak:")
+                    FullWidthTextStripe(text: "Press play!")
+                    JustifiedText(text: "Put your phone into your runners arm sleeve")
+                    JustifiedText(text: "Note: Pockets work fine but it's more enjoyable to have an arm sleeve IMO.")
+
+
+                    
+                    FullWidthTextStripe(text: "X. If you hear linebreak:")
                     JustifiedText(text: "Hustle back if on defense or upfield in support if you're on offense. Visualize hitting a gap or chasing down a shifty attacker.")
                     
-                    FullWidthTextStripe(text: "4. If you hear tackle & poach:")
+                    FullWidthTextStripe(text: "X. If you hear tackle & poach:")
                     JustifiedText(text: "Do an up-down wherever you are, or go through your tackle motion and then quickly circle onsides for the poach.")
                     JustifiedText(text: "Note: While something like this is good exercise anyways, make sure to visualize executing the actual skill or you are cheating yourself of the mental reps.")
                     
-                    FullWidthTextStripe(text: "5. If you hear try and you are a kicker:")
+                    FullWidthTextStripe(text: "X. If you hear try and you are a kicker:")
                     JustifiedText(text: "Have balls setup at the middle for the restart and maybe a few setup (or you can run and grab them) to take the kick on posts.")
                     JustifiedText(text: "Note: It's important to practice these skills while tired to work on mental strength, but I encourage doing a kicking session when you aren't tired as well to better focus on your technique and not simply your ability to lock in while tired.")
                     
