@@ -30,13 +30,19 @@ struct GameSimulationView: View {
                     .edgesIgnoringSafeArea(.all) // Fill entire background
                 
                 VStack(spacing: 20) {
-                    Text("Game Simulation View")
-                        .font(.custom("Futura", size: 30))
-                        .foregroundColor(.primaryGold)
-                        .padding()
-
-                    // TODO: ADD A CLEAN GRAPHIC FOR THE INTENSITY
                     Spacer()
+                    Text("Game Simulation")
+                                .font(.custom("Futura-Bold", size: 25))
+                                .foregroundColor(.primaryGold)
+                                .multilineTextAlignment(.center) // Center-align text
+                                .frame(maxWidth: .infinity, alignment: .center) // Center horizontally
+
+                    Spacer()
+                    Image("Posts")
+                        .resizable() // Allows resizing of the image
+                        .aspectRatio(contentMode: .fit) // Maintains the aspect ratio while fitting within the bounds
+                        .frame(maxWidth: 200, maxHeight: 200) // Sets a reasonable size limit for the image
+                        .frame(maxWidth: .infinity) // Ensures the image is centered horizontally
                     
                     Text("Intensity")
                         .font(.custom("Futura", size: 24))
@@ -45,36 +51,21 @@ struct GameSimulationView: View {
                     BouncingSlider(value: $intensity)
                         .padding(.horizontal, 30)
                     
-                    NavigationLink(destination: PlayView(intensity: Int(intensity))) {
-                        Text("Play at Intensity \(Int(intensity))")
-                            .font(.custom("Futura", size: 24))
-                            .padding()
-                            .background(Color.primaryGold)
-                            .foregroundColor(.lightGrey)
-                            .cornerRadius(10)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.charcoalGrey, lineWidth: 5)
-                            )
-                            .padding()
-                    }
                     
-                    NavigationLink(destination: TutorialView()) {
-                        Text("Tutorial")
-                            .font(.custom("Futura", size: 24))
-                            .padding()
-                            .background(Color.darkGrey)
-                            .foregroundColor(.lightGrey)
-                            .cornerRadius(10)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.charcoalGrey, lineWidth: 5)
-                            )
-                    }
+                    CustomNavButton(
+                        text: "Play at Intensity \(Int(intensity))",
+                        destination: PlayView(intensity: Int(intensity))
+                    )
+                    
+                    CustomNavButton(
+                        text: "Tutorial",
+                        destination: TutorialView()
+                    )
+                    
                     
                     Spacer()
                 }
-                .navigationTitle("Game Simulation")
+                .navigationTitle("")
                 .navigationBarTitleDisplayMode(.inline)
             }
         }

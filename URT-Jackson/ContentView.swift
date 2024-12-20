@@ -17,43 +17,42 @@ struct ContentView: View {
                     .edgesIgnoringSafeArea(.all) // Fill entire background
                 
                 VStack(spacing: 20) {
-                    // Display the image
-                    Text("The Ultimate Rugby Trainer")
-                        .font(.custom("Futura", size: 24))
-                        .foregroundColor(.primaryGold) // Title text color
-                        .padding()
-
-                    // TODO: ADD RUGBY GRAPHIC HERE; maybe clean posts?
                     Spacer()
+                    
+                    // Display the image
+                    Text("The\nUltimate Rugby Trainer")
+                                .font(.custom("Futura-Bold", size: 25))
+                                .foregroundColor(.primaryGold)
+                                .multilineTextAlignment(.center) // Center-align text
+                                .frame(maxWidth: .infinity, alignment: .center) // Center horizontally
+                    Spacer()
+                    Image("Cap")
+                        .resizable() // Allows resizing of the image
+                        .aspectRatio(contentMode: .fit) // Maintains the aspect ratio while fitting within the bounds
+                        .frame(maxWidth: 200, maxHeight: 200) // Sets a reasonable size limit for the image
+                        .frame(maxWidth: .infinity) // Ensures the image is centered horizontally
 
-                    // Settings Button
-                    NavigationLink(destination: SettingsView()) {
-                        Text("Settings")
-                            .font(.custom("Futura", size: 24))
-                            .foregroundColor(.lightGrey)
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(Color.primaryGold)
-                            .cornerRadius(10)
-                    }
+                    
+                    
+                    CustomNavButton(
+                        text: "Settings",
+                        destination: SettingsView()
+                    )
+                    
+                    CustomNavButton(
+                        text: "Game Simulation",
+                        destination: GameSimulationView()
+                    )
+                    
+                    
 
-                    // Game Simulation Button
-                    NavigationLink(destination: GameSimulationView()) {
-                        Text("Game Simulation")
-                            .font(.custom("Futura", size: 24))
-                            .foregroundColor(.lightGrey)
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(Color.primaryGold)
-                            .cornerRadius(10)
-                    }
 
                     // TODO: Bronco Trainer Button (disabled)
                     Spacer()
                 }
                 .padding() // Add padding to avoid content getting too close to the edges
             }
-            .navigationTitle("Main Menu")
+            .navigationTitle("")
             .navigationBarTitleDisplayMode(.inline)
         }
     }
