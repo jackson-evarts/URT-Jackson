@@ -8,27 +8,7 @@
 import SwiftUI
 import Foundation
 
-struct CustomNavButton<Destination: View>: View {
-    let text: String
-    let destination: Destination
 
-    var body: some View {
-        NavigationLink(destination: destination) {
-            Text(text)
-                .font(.custom("Futura", size: 24))
-                .foregroundColor(.lightGrey)
-                .padding()
-                .frame(maxWidth: .infinity)
-                .background(Color.primaryGold)
-                .cornerRadius(10)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.charcoalGrey, lineWidth: 5)
-                )
-                .padding(.horizontal, UIScreen.main.bounds.width * 0.05) // Dynamic horizontal padding
-        }
-    }
-}
 
 
 struct BouncingSlider: View {

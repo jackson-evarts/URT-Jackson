@@ -20,12 +20,10 @@ struct ContentView: View {
                     Spacer()
                     
                     // Display the image
-                    Text("The\nUltimate Rugby Trainer")
-                                .font(.custom("Futura-Bold", size: 25))
-                                .foregroundColor(.primaryGold)
-                                .multilineTextAlignment(.center) // Center-align text
-                                .frame(maxWidth: .infinity, alignment: .center) // Center horizontally
+                    TitlePage(title: "The\nUltimate Rugby Trainer")
+                    
                     Spacer()
+                    
                     Image("Cap")
                         .resizable() // Allows resizing of the image
                         .aspectRatio(contentMode: .fit) // Maintains the aspect ratio while fitting within the bounds

@@ -13,7 +13,7 @@ import SwiftUI
  
 
 struct GameSimulationView: View {
-    @State private var intensity: Double = 1.0
+    @State private var intensity: Double = 3.0
     @State private var currentImageIndex = 0
     @State private var timer: Timer?
     @State var timerSpeed: Double = 1.0
@@ -31,11 +31,7 @@ struct GameSimulationView: View {
                 
                 VStack(spacing: 20) {
                     Spacer()
-                    Text("Game Simulation")
-                                .font(.custom("Futura-Bold", size: 25))
-                                .foregroundColor(.primaryGold)
-                                .multilineTextAlignment(.center) // Center-align text
-                                .frame(maxWidth: .infinity, alignment: .center) // Center horizontally
+                    TitlePage(title: "Game Simulation")
 
                     Spacer()
                     Image("Posts")
