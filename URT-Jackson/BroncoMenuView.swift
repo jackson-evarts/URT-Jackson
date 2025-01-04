@@ -13,6 +13,7 @@ struct BroncoMenuView: View {
             TitlePage(title: "Bronco Menu")
                 .padding()
             Spacer()
+            
         }
     }
 }

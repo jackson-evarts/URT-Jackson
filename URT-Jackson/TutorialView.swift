@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct TutorialView: View {
+    
+    // Allows me to dismiss the current screen simulating the effects of the back button
+    @Environment(\.dismiss) var dismiss
+    
     var body: some View {
         ZStack(alignment: .bottom) {
             ScrollView {
@@ -53,10 +57,29 @@ struct TutorialView: View {
                 .padding(.top, 20)
             }
             
+            Button {
+                dismiss()
+            } label: {
+                Text("Return to Intensity Selection")
+                    .font(.custom("Futura", size: 24))
+                    .foregroundColor(.lightGrey)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(Color.primaryGold)
+                    .cornerRadius(10)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.charcoalGrey, lineWidth: 5)
+                    )
+                    .padding(.horizontal, UIScreen.main.bounds.width * 0.05) // Dynamic horizontal padding
+                
+            }
+            /*
             CustomNavButton(
                 text: "Return to Intensity Selection",
                 destination: GameSimulationView()
             )
+             */
         }
         .navigationTitle("")
     }

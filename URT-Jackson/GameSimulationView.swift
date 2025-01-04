@@ -12,6 +12,8 @@ import SwiftUI
  */
 
 struct GameSimulationView: View {
+    // TODO: Work with navigationPath
+    // @Binding var navigationPath: NavigationPath
     @State private var intensity: Double = 3.0
     @State private var currentImageIndex = 0
     @State private var timer: Timer?
