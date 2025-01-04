@@ -9,6 +9,11 @@ import Foundation
 import SwiftUI
 import AVFoundation
 
+// TODO: Find a good font for the title page of the app
+/*
+ Stylistic header for ever page and (currently) for the title page of the app.
+ */
+
 struct TitlePage: View {
     let title: String
 
@@ -21,7 +26,9 @@ struct TitlePage: View {
     }
 }
 
-
+/*
+ Stylistic sub-title stripe currently used on the tutorial page.
+ */
 struct FullWidthTextStripe: View {
     var text: String
 
@@ -44,6 +51,10 @@ struct FullWidthTextStripe: View {
     }
 }
 
+/*
+ Stylistic text field. Currently used for filling in the tutorial page. Takes one parameter:
+ String named "text": The text you want to be displayed.
+ */
 struct JustifiedText: View {
     var text: String // Single block of text
 
@@ -62,7 +73,6 @@ struct JustifiedText: View {
  A string named "text": The text that is going to be displayed on the button. Ex: "Bronco Menu"
  A destination of type Destination: Pass a SwiftUI View that you want the button to lead to. Ex: BroncoMenuView()
  */
-
 struct CustomNavButton<Destination: View>: View {
     let text: String
     let destination: Destination
