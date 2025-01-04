@@ -35,7 +35,6 @@ struct BroncoMenuView: View {
                     )
                     
                     // TODO: Move this whole menu into the bronco workouts area and change it from BroncoMenuViewLogic into just the normal area. Need the selection to be avaliable on the WorkoutView.
-                    BroncoMenu()
                     
                 }
             }
