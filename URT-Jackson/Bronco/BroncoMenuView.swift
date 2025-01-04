@@ -34,19 +34,23 @@ struct BroncoMenuView: View {
                         destination: BroncoWorkoutsView()
                     )
                     
+                    CustomNavButton(
+                        text: "Bronco Testing Assistance",
+                        destination: BroncoGuideSetupView()
+                    )
                     
                     
                     Spacer()
                     
-                }
-            }
+                } // End VStack
+            } // End ZStack
             .navigationTitle("")
-        }
+        } // End NavigationStack
         .tint(.primaryGold) // Set the tint color for navigation elements
 
-    }
+    } // End View
 
-}
+} // End struct
 
 #Preview {
     BroncoMenuView()

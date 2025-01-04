@@ -53,7 +53,7 @@ struct ContentView: View {
                     Spacer()
                 }
             }
-            .navigationTitle("")
+            .navigationTitle("Main Menu")
         }
         .tint(.primaryGold) // Set the tint color for navigation elements
 
