@@ -57,12 +57,47 @@ struct JustifiedText: View {
     }
 }
 
+/*
+ Stylistic navigation button which takes two parameters.
+ A string named "text": The text that is going to be displayed on the button. Ex: "Bronco Menu"
+ A destination of type Destination: Pass a SwiftUI View that you want the button to lead to. Ex: BroncoMenuView()
+ */
+
 struct CustomNavButton<Destination: View>: View {
     let text: String
     let destination: Destination
 
     var body: some View {
         NavigationLink(destination: destination) {
+            Text(text)
+                .font(.custom("Futura", size: 24))
+                .foregroundColor(.lightGrey)
+                .padding()
+                .frame(maxWidth: .infinity)
+                .background(Color.primaryGold)
+                .cornerRadius(10)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.charcoalGrey, lineWidth: 5)
+                )
+                .padding(.horizontal, UIScreen.main.bounds.width * 0.05) // Dynamic horizontal padding
+        }
+    }
+}
+
+/*
+ A structure that preforms the dismiss function--essentially returning to the previous page/menu that the user has clicked from.
+ Leave the second argument out in implementation. Nothing needs to be declared or passed for functionality.
+*/
+struct BackButton: View {
+    var text: String
+    @Environment(\.dismiss) var dismiss
+    
+    var body: some View {
+        
+        Button {
+            dismiss()
+        } label: {
             Text(text)
                 .font(.custom("Futura", size: 24))
                 .foregroundColor(.lightGrey)

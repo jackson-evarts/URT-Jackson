@@ -39,6 +39,8 @@ struct BroncoMenuView: View {
                         destination: BroncoGuideSetupView()
                     )
                     
+                    BackButton(text: "Return to Main Menu")
+                    
                     
                     Spacer()
                     

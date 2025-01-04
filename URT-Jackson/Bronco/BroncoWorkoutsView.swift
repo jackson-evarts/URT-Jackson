@@ -25,7 +25,7 @@ struct BroncoWorkoutsView: View {
                 TitlePage(title: "Bronco Workout Selection")
                 
                 
-                // EVERYTHING BELOW IS FOR THE ACTUAL MENU
+                // MOST EVERYTHING BELOW IS FOR THE ACTUAL MENU
                 ZStack(alignment: .leading) {
                     
                     // Static Menu Items (Visible list)
@@ -99,6 +99,9 @@ struct BroncoWorkoutsView: View {
                     text: "Play",
                     destination: BroncoWorkoutPlayView(selectedWorkout: menuItems[selectedIndex])
                 )
+                
+                BackButton(text: "Return to Bronco Menu")
+
             }
         } // End NavigationStack
     } // End View
