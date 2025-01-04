@@ -34,12 +34,8 @@ struct BroncoMenuView: View {
                         destination: BroncoWorkoutsView()
                     )
                     
-                    BroncoMenu(menuItems: [
-                        "1-1-1-1-1-1-1-1-1-1 (10 legs)",
-                        "1-1-1-1-1-1 (6 legs)",
-                        "2-2-1-1",
-                        "3-2"
-                    ])
+                    // TODO: Move this whole menu into the bronco workouts area and change it from BroncoMenuViewLogic into just the normal area. Need the selection to be avaliable on the WorkoutView.
+                    BroncoMenu()
                     
                 }
             }

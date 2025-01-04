@@ -9,7 +9,12 @@ import Foundation
 import SwiftUI
 
 struct BroncoMenu: View {
-    let menuItems: [String] // List of menu items
+    let menuItems: [String] = [
+        "1-1-1-1-1-1-1-1-1-1 (10 legs)",
+        "1-1-1-1-1-1 (6 legs)",
+        "2-2-1-1",
+        "3-2"
+    ] // List of menu items
     
     @State private var selectedIndex: Int = 0 // Track the selected index
     
