@@ -38,6 +38,8 @@ struct BroncoMenuView: View {
                         text: "Bronco Testing Assistance",
                         destination: BroncoGuideSetupView()
                     )
+                    .padding(.vertical)
+
                     
                     BackButton(text: "Return to Main Menu")
                     

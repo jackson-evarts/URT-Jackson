@@ -56,6 +56,8 @@ struct GameSimulationView: View {
                         text: "Tutorial",
                         destination: TutorialView()
                     )
+                    
+                    BackButton(text: "Return to Main Menu")
                 }
                 .navigationTitle("")
                 .navigationBarTitleDisplayMode(.inline)

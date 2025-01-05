@@ -21,8 +21,8 @@ struct BroncoWorkoutsView: View {
     var body: some View {
         NavigationStack{
             VStack {
-                Spacer()
                 TitlePage(title: "Bronco Workout Selection")
+                    .padding()
                 
                 
                 // MOST EVERYTHING BELOW IS FOR THE ACTUAL MENU
@@ -72,7 +72,7 @@ struct BroncoWorkoutsView: View {
                         }
                     }) {
                         Image(systemName: "chevron.up")
-                            .font(.system(size: 24))
+                            .font(.system(size: 30))
                             .foregroundColor(Color.charcoalGrey)
                     }
                     
@@ -87,7 +87,7 @@ struct BroncoWorkoutsView: View {
                         
                     }) {
                         Image(systemName: "chevron.down")
-                            .font(.system(size: 24))
+                            .font(.system(size: 30))
                             .foregroundColor(Color.charcoalGrey)
                     }
                 }
@@ -99,6 +99,7 @@ struct BroncoWorkoutsView: View {
                     text: "Play",
                     destination: BroncoWorkoutPlayView(selectedWorkout: menuItems[selectedIndex])
                 )
+                .padding(.vertical)
                 
                 BackButton(text: "Return to Bronco Menu")
 

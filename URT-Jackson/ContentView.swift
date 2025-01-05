@@ -55,7 +55,7 @@ struct ContentView: View {
             }
             .navigationTitle("")
         }
-        .tint(.primaryGold) // Set the tint color for navigation elements
+        .tint(.primaryGold) // Set the tint color for navigation elementsf
 
     }
 }
