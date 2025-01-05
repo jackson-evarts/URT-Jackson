@@ -46,6 +46,8 @@ struct PlayView: View {
         .onAppear {
             // Start the timer immediately as the screen is brought up
             startTimer()
+            
+            // TODO: Setup the audio session on a higher level because AVAudioSessions are shared globally across the app. Do it in URT_JacksonApp
             setupAudioSession()
             
             // Building the game and calling eventManagement function to play audios
