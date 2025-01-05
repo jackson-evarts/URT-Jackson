@@ -19,13 +19,12 @@ struct BroncoWorkoutsView: View {
     @State private var selectedIndex: Int = 0 // Track the selected index
     
     var body: some View {
-        NavigationStack{
+        NavigationStack {
             VStack {
                 TitlePage(title: "Bronco Workout Selection")
                     .padding()
                 
-                
-                // MOST EVERYTHING BELOW IS FOR THE ACTUAL MENU
+                // Swipeable Menu
                 ZStack(alignment: .leading) {
                     
                     // Static Menu Items (Visible list)
@@ -33,7 +32,7 @@ struct BroncoWorkoutsView: View {
                         ForEach(menuItems.indices, id: \.self) { index in
                             Text(menuItems[index])
                                 .font(.custom("Futura", size: 20))
-                                .foregroundColor(Color.primaryGold)
+                                .foregroundColor(index == selectedIndex ? .primaryGold : .charcoalGrey)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 30)
                         }
@@ -44,7 +43,6 @@ struct BroncoWorkoutsView: View {
                         ForEach(menuItems.indices, id: \.self) { index in
                             if index == selectedIndex {
                                 HStack {
-                                    // Arrow positioned to the left of each item
                                     Image(systemName: "arrowtriangle.right.fill")
                                         .foregroundColor(Color.charcoalGrey)
                                         .font(.system(size: 20))
@@ -58,11 +56,34 @@ struct BroncoWorkoutsView: View {
                         }
                     }
                 }
-                .padding()
-                .cornerRadius(10)
                 .frame(maxWidth: .infinity, maxHeight: 300)
+                .padding()
+                .background(Color.lightGrey.opacity(0.2))
+                .cornerRadius(10)
+                .gesture(
+                    DragGesture()
+                        .onEnded { gesture in
+                            let verticalMovement = gesture.translation.height
+                            
+                            withAnimation {
+                                if verticalMovement > 30 && selectedIndex < menuItems.count - 1 {
+                                    // Swipe Down → Move Down
+                                    selectedIndex += 1
+                                } else if verticalMovement < -30 && selectedIndex > 0 {
+                                    // Swipe Up → Move Up
+                                    selectedIndex -= 1
+                                }
+                            }
+                        }
+                )
                 
-                // Controls for Arrow Movement
+                // Text Instructions
+                Text("Swipe up/down or use the arrows to change workouts.")
+                    .font(.custom("Futura", size: 18))
+                    .foregroundColor(.darkGrey)
+                    .padding()
+                
+                // Arrow Buttons for Navigation
                 HStack(spacing: 60) {
                     Button(action: {
                         withAnimation {
@@ -82,9 +103,6 @@ struct BroncoWorkoutsView: View {
                                 selectedIndex += 1
                             }
                         }
-                        
-                        print("Selected workout: \(menuItems[selectedIndex])")
-                        
                     }) {
                         Image(systemName: "chevron.down")
                             .font(.system(size: 30))
@@ -93,16 +111,15 @@ struct BroncoWorkoutsView: View {
                 }
                 .padding()
                 
-                Spacer()
-                
+                // Play Button
                 CustomNavButton(
                     text: "Play",
                     destination: BroncoWorkoutPlayView(selectedWorkout: menuItems[selectedIndex])
                 )
                 .padding(.vertical)
                 
+                // Back Button
                 BackButton(text: "Return to Bronco Menu")
-
             }
         } // End NavigationStack
     } // End View
