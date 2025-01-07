@@ -15,10 +15,10 @@ struct PlayView: View {
     
     var intensity: Int
     @State private var backgroundColor: Color = .clear // Initialize with a default value (e.g., .clear)
-    @State private var elapsedTime: Int = -5
-    @State private var audioPlayer: AVAudioPlayer?
-    @State private var timer: Timer?
     @Environment(\.dismiss) var dismiss // Used to help navigate back on triple click
+    
+    @EnvironmentObject var audioTimerManager: GlobalAudioTimerManager // Access global manager
+    
     
     var body: some View {
         ZStack{
@@ -27,40 +27,39 @@ struct PlayView: View {
             VStack{
                 
                 var formattedTime: String {
-                    let minutes = elapsedTime / 60
-                    let seconds = elapsedTime % 60
+                    let minutes = audioTimerManager.elapsedTime / 60
+                    let seconds = audioTimerManager.elapsedTime % 60
                     return String(format: "%02d:%02d", minutes, seconds) // Format as MM:SS
                 }
                 
                 Text("Elapsed Time: \(formattedTime)")
                     .foregroundColor(.white)
                     .font(.custom("Futura", size:20))
-
+                
                 
                 Text("Triple Tap to Return to Menu")
                     .foregroundColor(.white)
                     .font(.custom("Futura", size:20))
-
+                
                 
                 Text("Intensity: \(intensity)")
                     .foregroundColor(.white)
                     .font(.custom("Futura", size:20))
-
+                
             }
             
         }
         .onAppear {
             // Start the timer immediately as the screen is brought up
-            startTimer()
+            audioTimerManager.startTimer()
             
-            // TODO: Setup the audio session on a higher level because AVAudioSessions are shared globally across the app. Do it in URT_JacksonApp
-            setupAudioSession()
+            audioTimerManager.setupAudioSession()
             
             // Building the game and calling eventManagement function to play audios
             let gameList = buildGame(intensity: intensity)
             eventManagement(gameEvents: gameList)
             print("The game: \(gameList)")
-        
+            
             // Animate the color change to black when the view appears
             backgroundColor = Color.white
             withAnimation(.easeInOut(duration: 3)) {
@@ -73,70 +72,18 @@ struct PlayView: View {
         .navigationBarBackButtonHidden(true)
         .onTapGesture(count: 3) { // Detect triple tap
             dismiss() // Navigate back on triple tap
-            stopTimer()
-            elapsedTime = -5
+            audioTimerManager.stopTimer()
+            audioTimerManager.elapsedTime = -5
         }
         
         
         .onDisappear(){ // Timer stops when the view is put away
-            stopTimer()
+            audioTimerManager.stopTimer()
         }
     }
     
-    /*
-     Precondition:
-     The passed variable "sound" is a valid .m4a file inside the app folder.
-     =====
-     Postcondition:
-     The correlated audio to the details passed is played for the user.
-     =====
-     Author:
-     Jackson Evarts
-     */
-    func playSound(sound: String, type: String = "m4a") {
-        if let path = Bundle.main.path(forResource: sound, ofType: type) {
-            // print("Path found: \(path)") // Check if this is the correct path
-            let url = URL(fileURLWithPath: path)
-            do {
-                audioPlayer = try AVAudioPlayer(contentsOf: url)
-                audioPlayer?.play()
-                print("\(sound) sound should play now.")
-
-            } catch {
-                print("Error playing sound: \(error.localizedDescription)")
-            }
-        } else {
-            print("Sound file not found: \(sound).\(type)")
-        }
-    }
     
-    /*
-     Precondition:
-     --
-     =====
-     Postcondition:
-     Audio is setup to play in the background and duck other audio
-     */
-    func setupAudioSession() {
-        do {
-            let audioSession = AVAudioSession.sharedInstance()
-            try audioSession.setCategory(.playback, options: [.mixWithOthers, .duckOthers]) // Allow mixing and ducking
-            try audioSession.setActive(true) // Activate the session
-        } catch {
-            print("Error setting up audio session: \(error.localizedDescription)")
-        }
-    }
     
-    func startTimer() {
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
-            self.elapsedTime += 1
-        }
-    }
-    
-    func stopTimer() {
-        timer?.invalidate()
-        timer = nil
-    }
     
     /*
      Precondition:
@@ -151,11 +98,11 @@ struct PlayView: View {
         
         // Start a timer to check elapsedTime periodically
         Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
-            let currentTime = self.elapsedTime
+            let currentTime = audioTimerManager.elapsedTime
             
             // If all events are processed, invalidate the timer
             if gameEventIndex >= gameEvents.count {
-                timer.invalidate()
+                audioTimerManager.stopTimer()
                 return
             }
             
@@ -167,7 +114,7 @@ struct PlayView: View {
                 // Play the audio based on the event type
                 
                 print("\(nextEvent) sound playing at \(currentTime).")
-                playSound(sound: nextEvent.1)
+                audioTimerManager.playSound(sound: nextEvent.1)
                 
                 // Move to the next event in the array
                 gameEventIndex += 1
@@ -248,7 +195,7 @@ struct PlayView: View {
         
         // Randomized event types excluding ordered ones
         let baseEvents = Array(repeating: "Scrum", count: scrums) +
-                         Array(repeating: "Lineout", count: lineouts)
+        Array(repeating: "Lineout", count: lineouts)
         var randomizedEvents = baseEvents.shuffled() // Randomize non-specific events
         
         // First half events with ordered linebreak rules
@@ -314,11 +261,13 @@ struct PlayView: View {
         
         return timeline.sorted { $0.0 < $1.0 }
     }
-
+    
     
     
 }
 
 #Preview {
     PlayView(intensity: 3)
+        .environmentObject(GlobalAudioTimerManager()) // Provide the environment object for preview
+    
 }

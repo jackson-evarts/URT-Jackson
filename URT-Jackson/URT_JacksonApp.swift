@@ -9,6 +9,9 @@ import SwiftUI
 
 @main
 struct URT_JacksonApp: App {
+    @StateObject private var audioTimerManager = GlobalAudioTimerManager()
+
+    
     init() {
         #if DEBUG
         // Reset the "first-time" flag for testing purposes
@@ -19,6 +22,10 @@ struct URT_JacksonApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(audioTimerManager) // Inject the global manager
+            // .environmentObject(...) makes the manager available to all views in the SwiftUI hierarchy.
+
+
         }
     }
 }
