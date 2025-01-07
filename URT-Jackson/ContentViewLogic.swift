@@ -109,17 +109,17 @@ struct BackButton: View {
             dismiss()
         } label: {
             Text(text)
-                .font(.custom("Futura", size: 24))
+                .font(.custom("Futura", size: 19))
                 .foregroundColor(.lightGrey)
                 .padding()
                 .frame(maxWidth: .infinity)
-                .background(Color.primaryGold)
+                .background(Color.darkGrey)
                 .cornerRadius(10)
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(Color.charcoalGrey, lineWidth: 5)
                 )
-                .padding(.horizontal, UIScreen.main.bounds.width * 0.05) // Dynamic horizontal padding
+                .padding(.horizontal, UIScreen.main.bounds.width * 0.1) // Dynamic horizontal padding
         }
     }
 }

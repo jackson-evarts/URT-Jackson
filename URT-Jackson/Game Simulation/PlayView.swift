@@ -34,12 +34,18 @@ struct PlayView: View {
                 
                 Text("Elapsed Time: \(formattedTime)")
                     .foregroundColor(.white)
+                    .font(.custom("Futura", size:20))
+
                 
                 Text("Triple Tap to Return to Menu")
                     .foregroundColor(.white)
+                    .font(.custom("Futura", size:20))
+
                 
                 Text("Intensity: \(intensity)")
                     .foregroundColor(.white)
+                    .font(.custom("Futura", size:20))
+
             }
             
         }
@@ -179,7 +185,7 @@ struct PlayView: View {
      Events should be random order besides these rules
      
      Rules:
-     Tries after offensive or defensive linebreaks
+     Tries only occur after offensive or defensive linebreaks
      Tackles 2-5 seconds after offensive linebreaks
      TacklePoach 2-5 after defensive linebreaks
      Kickoff 30 seconds after a try is scored, unless that carries into Halftime

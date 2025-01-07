@@ -28,9 +28,7 @@ struct TutorialView: View {
                     FullWidthTextStripe(text: "Setup")
 
                     FullWidthTextStripe(text: "X. If you are a kicker:")
-                    JustifiedText(text: "Setup balls on the midfield for restarts and both try-zones on different widths.")
-
-                    JustifiedText(text: "Note: Your Intensity selection dictates how many events occur during your session. A higher intensity correlates to less scrums and more linebreaks.")
+                    JustifiedText(text: "Setup balls on the midfield for restarts and both try-zones on different widths. Alternatively it can be beneficial to visualize successful kicks rather than physically taking them.")
                     
                     FullWidthTextStripe(text: "X. Select your intensity:")
                     JustifiedText(text: "Note: Your Intensity selection dictates how many events occur during your session. A higher intensity correlates to less scrums and more linebreaks.")
@@ -57,29 +55,8 @@ struct TutorialView: View {
                 .padding(.top, 20)
             }
             
-            Button {
-                dismiss()
-            } label: {
-                Text("Return to Intensity Selection")
-                    .font(.custom("Futura", size: 24))
-                    .foregroundColor(.lightGrey)
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color.primaryGold)
-                    .cornerRadius(10)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.charcoalGrey, lineWidth: 5)
-                    )
-                    .padding(.horizontal, UIScreen.main.bounds.width * 0.05) // Dynamic horizontal padding
-                
-            }
-            /*
-            CustomNavButton(
-                text: "Return to Intensity Selection",
-                destination: GameSimulationView()
-            )
-             */
+            BackButton(text: "Return to Intensity Selection")
+
         }
         .navigationTitle("")
     }
