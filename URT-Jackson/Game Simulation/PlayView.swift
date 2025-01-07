@@ -50,9 +50,12 @@ struct PlayView: View {
             
         }
         .onAppear {
+            
+            
             // Start the timer immediately as the screen is brought up
             audioTimerManager.startTimer()
             
+            // Initialize the audio session
             audioTimerManager.setupAudioSession()
             
             // Building the game and calling eventManagement function to play audios
@@ -61,7 +64,7 @@ struct PlayView: View {
             print("The game: \(gameList)")
             
             // Animate the color change to black when the view appears
-            backgroundColor = Color.white
+            backgroundColor = Color.lightGrey
             withAnimation(.easeInOut(duration: 3)) {
                 backgroundColor = Color.black
             }

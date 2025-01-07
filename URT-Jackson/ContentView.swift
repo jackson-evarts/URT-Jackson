@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @StateObject private var audioTimerManager = GlobalAudioTimerManager()
+
 
     var body: some View {
         NavigationStack {
@@ -62,4 +65,6 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .environmentObject(GlobalAudioTimerManager()) // Inject GlobalAudioTimerManager
+
 }

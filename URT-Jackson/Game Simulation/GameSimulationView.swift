@@ -12,13 +12,12 @@ import SwiftUI
  */
 
 struct GameSimulationView: View {
-    // TODO: Work with navigationPath
-    // @Binding var navigationPath: NavigationPath
     @State private var intensity: Double = 3.0
     @State private var currentImageIndex = 0
-    @State private var timer: Timer?
-    @State var timerSpeed: Double = 1.0
     @State private var showTip: Bool = false // State for showing the tip
+    
+    @StateObject private var audioTimerManager = GlobalAudioTimerManager()
+
     
     var body: some View {
         NavigationStack {
@@ -110,4 +109,6 @@ struct GameSimulationView: View {
 
 #Preview {
     GameSimulationView()
+        .environmentObject(GlobalAudioTimerManager()) // Inject GlobalAudioTimerManager
+
 }
