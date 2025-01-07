@@ -111,6 +111,8 @@ struct BroncoWorkoutsView: View {
                 }
                 .padding()
                 
+                // TODO: [Necessary Feature] Explain the workout description notation
+                
                 // Play Button
                 CustomNavButton(
                     text: "Play",

@@ -65,6 +65,8 @@ class GlobalAudioTimerManager: ObservableObject {
         }
     }
     
+    // TODO: [Necessary Feature] Add a function for starting the timer at -5 rather than 0. 
+    
     // Stops the global timer.
     func stopTimer() {
         timer?.invalidate()

@@ -16,8 +16,12 @@ struct GameSimulationView: View {
     @State private var currentImageIndex = 0
     @State private var showTip: Bool = false // State for showing the tip
     
+    
+    // TODO: [Question] Does initializing this class on multiple views that don't use it (which I did to fix a Preview Crash bug) defeat the purpose of having a globally declared class? Am I adding heavy baggage to my app? v
     @StateObject private var audioTimerManager = GlobalAudioTimerManager()
-
+    
+    
+    
     
     var body: some View {
         NavigationStack {
@@ -41,7 +45,7 @@ struct GameSimulationView: View {
                         .font(.custom("Futura", size: 24))
                         .foregroundColor(.darkGrey)
                     
-                    // TODO: Idk if this is possible but it could be cool to have the slider be a ball where you can drag your finger up and it's like that rugby goal kicking game and you have to try to score on the graphic posts.
+                    // TODO: [Idea] Idk if this is possible but it could be cool to have the slider be a ball where you can drag your finger up and it's like that rugby goal kicking game and you have to try to score on the graphic posts.
                     
                     BouncingSlider(value: $intensity)
                         .padding(.horizontal, 30)
