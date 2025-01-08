@@ -14,7 +14,7 @@ struct BroncoGuideSetupView: View {
                 .edgesIgnoringSafeArea(.all) // Fill entire background
             VStack{
                 Spacer()
-                Text("This feature is coming soon!")
+                Text("This feature is under development.")
                 Spacer()
                 BackButton(text: "Return to Bronco Menu")
                     .padding(.bottom)

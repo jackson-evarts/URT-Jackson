@@ -58,7 +58,7 @@ struct ContentView: View {
                     
                     Spacer()
                     
-                    Text("Direct Issues And Suggestions To:")
+                    Text("Developer Contact:")
                         .font(.custom("Futura", size: 10))
                         .foregroundColor(.charcoalGrey)
                     Text("devjevvy@gmail.com")
