@@ -35,11 +35,11 @@ struct GameSimulationView: View {
                     TitlePage(title: "Game Simulation")
                     
                     Spacer()
-                    Image("Posts")
-                        .resizable() // Allows resizing of the image
-                        .aspectRatio(contentMode: .fit) // Maintains the aspect ratio while fitting within the bounds
-                        .frame(maxWidth: 200, maxHeight: 200) // Sets a reasonable size limit for the image
-                        .frame(maxWidth: .infinity) // Ensures the image is centered horizontally
+                    Image(intensity == 5 ? "Skull" : "Posts") // Dynamically switch the image
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(maxWidth: 200, maxHeight: 200)
+                        .frame(maxWidth: .infinity)
                     
                     Text("Intensity")
                         .font(.custom("Futura", size: 24))
@@ -115,5 +115,5 @@ struct GameSimulationView: View {
 #Preview {
     GameSimulationView()
         .environmentObject(GlobalAudioTimerManager()) // Inject GlobalAudioTimerManager
-
+    
 }
