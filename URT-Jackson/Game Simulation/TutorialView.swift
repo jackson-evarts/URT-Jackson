@@ -22,32 +22,31 @@ struct TutorialView: View {
                     // Put snow tutorial at the bottom of the tutorial page and have it be an easter egg?
                         // Maybe a stripe saying "X. [something about snow]" is a button that you can click but I don't tell you that it's clickable.
                     
-                    TitlePage(title: "Tutorial Page")
-                        .padding(.bottom, 20)
-                    
-                    FullWidthTextStripe(text: "Setup")
-
-                    FullWidthTextStripe(text: "X. If you are a kicker:")
-                    JustifiedText(text: "Setup balls on the midfield for restarts and both try-zones on different widths. Alternatively it can be beneficial to visualize successful kicks rather than physically taking them.")
-                    
-                    FullWidthTextStripe(text: "X. Select your intensity:")
-                    JustifiedText(text: "Note: Your Intensity selection dictates how many events occur during your session. A higher intensity correlates to less scrums and more linebreaks.")
+                    FullWidthTextStripe(text: "Select your intensity")
+                    JustifiedText(text: "Your Intensity selection dictates how many events occur during your session. A higher intensity correlates to less scrums and more linebreaks (longer passages of play = 🥵🥵)")
                     
                     FullWidthTextStripe(text: "Press play!")
-                    JustifiedText(text: "Put your phone into your runners arm sleeve")
-                    JustifiedText(text: "Note: Pockets work fine but it's more enjoyable to have an arm sleeve IMO.")
+                    JustifiedText(text: "Put your phone into your runners arm sleeve.")
+                    JustifiedText(text: "Pockets work fine but it's more enjoyable to have an arm sleeve IMO.")
                     
-                    FullWidthTextStripe(text: "X. If you hear linebreak:")
-                    JustifiedText(text: "Hustle back if on defense or upfield in support if you're on offense. Visualize hitting a gap or chasing down a shifty attacker.")
+                    FullWidthTextStripe(text: "If you hear LINEBREAK...")
+                    JustifiedText(text: "... hustle back if on defense or upfield in support if you're on offense. Visualize hitting a gap or chasing down a shifty attacker.")
                     
-                    FullWidthTextStripe(text: "X. If you hear tackle & poach:")
-                    JustifiedText(text: "Do an up-down wherever you are, or go through your tackle motion and then quickly circle onsides for the poach.")
-                    JustifiedText(text: "Note: While something like this is good exercise anyways, make sure to visualize executing the actual skill or you are cheating yourself of the mental reps.")
+                    FullWidthTextStripe(text: "If you hear TACKLE & POACH...")
+                    JustifiedText(text: "... do an up-down wherever you are, or go through your tackle motion and then quickly circle onsides for the poach.")
+                    JustifiedText(text: "While this is good exercise, make sure to visualize executing the actual skill or you are cheating yourself of the mental reps.")
                     
-                    FullWidthTextStripe(text: "X. If you hear try and you are a kicker:")
-                    JustifiedText(text: "Have balls setup at the middle for the restart and maybe a few setup (or you can run and grab them) to take the kick on posts.")
-                    JustifiedText(text: "Note: It's important to practice these skills while tired to work on mental strength, but I encourage doing a kicking session when you aren't tired as well to better focus on your technique and not simply your ability to lock in while tired.")
+                    FullWidthTextStripe(text: "If you hear TRY and you are a kicker...")
+                    JustifiedText(text: "... have balls setup at the middle for the restart and maybe a few setup (or you can run and grab them) to take the kick on posts.")
+                    JustifiedText(text: "It can also be beneficial for you to practice visualization with your kicking too, and imagine making strong a strong and successful kick 🦵🎉")
+
+                    FullWidthTextStripe(text: "IMPORTANT NOTE: This app is simply providing a framework.")
+                    JustifiedText(text: "Go through the mental exercise of visualizing yourself successfully playing a rugby game. That is the point--not simply to make you look stupid running around a field alone 😂")
                     
+                    FullWidthTextStripe(text: "If you see an ERROR with the APP...")
+                    JustifiedText(text: "... make sure to send hate mail to the developer devjevvy@gmail.com ⬅️🤬")
+                    JustifiedText(text: "Alternatively, email a suggested fix or new feature to devjevvy@gmail.com 😇")
+
                     Spacer() // Add extra space to avoid button overlapping content
                         .frame(height: 80)
                     
