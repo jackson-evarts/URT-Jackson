@@ -51,7 +51,6 @@ struct PlayView: View {
         }
         .onAppear {
             
-            
             // Start the timer immediately as the screen is brought up
             audioTimerManager.startTimer()
             

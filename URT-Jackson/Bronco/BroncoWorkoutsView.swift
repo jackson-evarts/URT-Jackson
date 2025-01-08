@@ -10,17 +10,21 @@ import SwiftUI
 struct BroncoWorkoutsView: View {
     
     let menuItems: [String] = [
-        "1-1-1-1-1-1-1-1-1-1",
-        "1-1-1-1-1",
+        "3-2",
         "2-2-1-1",
-        "3-2"
+        "1-1-1-1-1",
+        "1-1-1-1-1-1-1-1-1-1"
+        
+        
+        
     ] // List of menu items
     
     let menuDescriptions: [String] = [
-        "Run one bronco leg at maximum speed every two minutes for a total of ten legs.\nSuggestion: Dig deep dawg.",
-        "Run five bronco legs at maximum speed every two minutes for a total of five legs.",
+        "Run three bronco legs, take around a minute break, then run another two bronco legs.\nSuggestion: This one is beneficial for practicing running at your desired bronco pace.",
         "With around a one minute break in between sets, do a set of: two bronco legs, two bronco legs, one bronco leg, one bronco leg.\nSuggestion: Try to run the first four bronco legs at your desired bronco pace, and then burnout on the last last two legs at full effort.",
-        "Run three bronco legs, take around a minute break, then run another two bronco legs.\nSuggestion: This one is beneficial for practicing running at your desired bronco pace."
+        "Run five bronco legs at maximum speed every two minutes for a total of five legs.",
+        "Run one bronco leg at maximum speed every two minutes for a total of ten legs.\nSuggestion: Dig deep dawg."
+        
     ] // Descriptions for each menu item
     
     @State private var selectedIndex: Int = 0 // Track the selected index
@@ -28,10 +32,11 @@ struct BroncoWorkoutsView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                
+                /*
                 // Title
                 TitlePage(title: "Bronco Workout Selection")
                     .padding()
+                 */
                 
                 FullWidthTextStripe(text: "Workout Description:")
 
@@ -130,6 +135,7 @@ struct BroncoWorkoutsView: View {
                             .font(.system(size: 30))
                             .foregroundColor(Color.charcoalGrey)
                     }
+                    // TODO: [Idea] Easter egg where if you press down 6 times it gives you the forbidden workout. 5 legs of 2 bronco legs?
                 }
                 .padding()
                 
