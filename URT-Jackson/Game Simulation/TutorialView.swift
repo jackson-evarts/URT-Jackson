@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// TODO: [Feature] Make this a tutorial view menu, where you can select text or video. Make a no-connection error pop up for clicking the video without wifi. Maybe the photo for the page could be a graduation cap?
+
 struct TutorialView: View {
     
     // Allows me to dismiss the current screen simulating the effects of the back button
@@ -17,7 +19,7 @@ struct TutorialView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
                     
-                    // TODO: SNOW TUTORIAL - SUMMER TUTORIAL
+                    // TODO: [Funny Feature] SNOW TUTORIAL - SUMMER TUTORIAL
                     // Could be funny to have a tutorial where I'm trying to play in a snow-storm
                     // Put snow tutorial at the bottom of the tutorial page and have it be an easter egg?
                         // Maybe a stripe saying "X. [something about snow]" is a button that you can click but I don't tell you that it's clickable.
