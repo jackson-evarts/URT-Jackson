@@ -35,6 +35,8 @@ struct GameSimulationView: View {
                     TitlePage(title: "Game Simulation")
                     
                     Spacer()
+                    
+                    // TODO: [Feature] Do a gravestone instead? S.O. Mikas
                     Image(intensity == 5 ? "Skull" : "Posts") // Dynamically switch the image
                         .resizable()
                         .aspectRatio(contentMode: .fit)
