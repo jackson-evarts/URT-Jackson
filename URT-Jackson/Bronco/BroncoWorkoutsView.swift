@@ -10,19 +10,45 @@ import SwiftUI
 struct BroncoWorkoutsView: View {
     
     let menuItems: [String] = [
-        "1-1-1-1-1-1-1-1-1-1 (10 legs)",
-        "1-1-1-1-1-1 (6 legs)",
+        "1-1-1-1-1-1-1-1-1-1",
+        "1-1-1-1-1",
         "2-2-1-1",
         "3-2"
     ] // List of menu items
+    
+    let menuDescriptions: [String] = [
+        "Run one bronco leg at maximum speed every two minutes for a total of ten legs.\nSuggestion: Dig deep dawg.",
+        "Run five bronco legs at maximum speed every two minutes for a total of five legs.",
+        "With around a one minute break in between sets, do a set of: two bronco legs, two bronco legs, one bronco leg, one bronco leg.\nSuggestion: Try to run the first four bronco legs at your desired bronco pace, and then burnout on the last last two legs at full effort.",
+        "Run three bronco legs, take around a minute break, then run another two bronco legs.\nSuggestion: This one is beneficial for practicing running at your desired bronco pace."
+    ] // Descriptions for each menu item
     
     @State private var selectedIndex: Int = 0 // Track the selected index
     
     var body: some View {
         NavigationStack {
             VStack {
+                
+                // Title
                 TitlePage(title: "Bronco Workout Selection")
                     .padding()
+                
+                FullWidthTextStripe(text: "Workout Description:")
+
+                
+                // Description Box
+                Text(menuDescriptions[selectedIndex])
+                    .font(.custom("Futura", size: 16))
+                    .foregroundColor(.darkGrey)
+                    .multilineTextAlignment(.center)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(Color.lightGrey.opacity(0.2))
+                    .cornerRadius(8)
+                    .padding(.bottom, 10)
+                
+                FullWidthTextStripe(text: "Workout Selection:")
+
                 
                 // Swipeable Menu
                 ZStack(alignment: .leading) {
@@ -77,11 +103,7 @@ struct BroncoWorkoutsView: View {
                         }
                 )
                 
-                // Text Instructions
-                Text("Swipe up/down or use the arrows to change workouts.")
-                    .font(.custom("Futura", size: 18))
-                    .foregroundColor(.darkGrey)
-                    .padding()
+                
                 
                 // Arrow Buttons for Navigation
                 HStack(spacing: 60) {
@@ -111,7 +133,12 @@ struct BroncoWorkoutsView: View {
                 }
                 .padding()
                 
-                // TODO: [Necessary Feature] Explain the workout description notation
+                /*
+                // Text Instructions
+                Text("Swipe up/down or use the arrows to change workouts.")
+                    .font(.custom("Futura", size: 18))
+                    .foregroundColor(.darkGrey)
+                */
                 
                 // Play Button
                 CustomNavButton(
