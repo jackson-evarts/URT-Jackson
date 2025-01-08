@@ -54,6 +54,10 @@ struct BroncoWorkoutPlayView: View {
             
             // Start the timer immediately as the screen is brought up
             audioTimerManager.startTimer()
+            
+            let workoutEvents = buildWorkout(workout: selectedWorkout)
+            print("Workout list build: \n\(buildWorkout(workout: selectedWorkout))")
+
         
             // Initialize the audio session
             audioTimerManager.setupAudioSession()
@@ -115,9 +119,13 @@ struct BroncoWorkoutPlayView: View {
         
         let workoutGuideArray = stringToIntArray(workout)
         
+        
         for legs in workoutGuideArray {
+            
+            // Workout time. User should be running for ~this amount of time
             traceTime += legs * 60
-            // TODO: BUILD COUNTDOWN CALL
+            
+            // Passing finalList by reference for buildCounter to append countdown items to list
             buildCountdown(&finalList, startTime: traceTime)
             traceTime += 60 // Updating the traceTime to after the rest time countdown.
             
