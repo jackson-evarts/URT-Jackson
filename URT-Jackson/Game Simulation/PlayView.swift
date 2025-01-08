@@ -243,6 +243,7 @@ struct PlayView: View {
             // If all events are processed, invalidate the timer
             if gameEventIndex >= gameEvents.count {
                 audioTimerManager.stopTimer()
+                timer.invalidate()
                 return
             }
             

@@ -55,7 +55,8 @@ struct BroncoWorkoutPlayView: View {
             // Start the timer immediately as the screen is brought up
             audioTimerManager.startTimer()
             
-            let workoutEvents = buildWorkout(workout: selectedWorkout)
+            let list = buildWorkout(workout: selectedWorkout)
+            eventManagement(workoutEvents: list)
             print("Workout list build: \n\(buildWorkout(workout: selectedWorkout))")
             
             
@@ -132,10 +133,10 @@ struct BroncoWorkoutPlayView: View {
         return finalList
     }
     
+    // TODO: [Code Improvement] This function is identical to the PlayView version except this one doesn't have sounds implemented yet. Look for opportunity for code reusability once the audios are done.
     /*
      Precondition:
-     The workoutEvents array is NOT empty (important for the force unwrap)
-     eventManagment is passed
+
      =====
      Postcondition:
      Each time the timer hits a time that is in the workoutEvents array, the program will play the correlated sound associated with the string that is in the workoutEvents array.
@@ -143,32 +144,30 @@ struct BroncoWorkoutPlayView: View {
     func eventManagement(workoutEvents: [(Int, String)]) {
         var workoutEventIndex = 0
         
-        // Access the global timer
-        // TODO: [Bug Test] See if this works. PlayView eventManagement looks slightly different.
-        let currentTime = audioTimerManager.elapsedTime
-        
-        // If the time is >= the time of the last event
-        // TODO: [Code Improvement] Potentially implement the auto-dismiss feature into PlayView if it works.
-        if currentTime >= workoutEvents.last!.0 {
-            audioTimerManager.stopTimer()
-            dismiss() // Leave the view if you have finished the last event
-            return
-        }
-        
-        let nextEvent = workoutEvents[workoutEventIndex]
-        
-        
-        // Check if the elapsed time matches the event time
-        if currentTime >= nextEvent.0 {
+        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+            let currentTime = audioTimerManager.elapsedTime
             
-            // Play the audio based on the event type
-            print("\(nextEvent) sound playing at \(currentTime).")
-            // TODO: [Incomplete Feature] Uncomment the below line once the new sounds are imported to assets
-            //audioTimerManager.playSound(sound: nextEvent.1)
+            // If the time is >= the time of the last event
+            if workoutEventIndex >= workoutEvents.count {
+                audioTimerManager.stopTimer()
+                timer.invalidate()
+                return
+            }
             
-            // Move to the next event in the array
-            workoutEventIndex += 1
+            let nextEvent = workoutEvents[workoutEventIndex]
             
+            
+            // Check if the elapsed time matches the event time
+            if currentTime >= nextEvent.0 {
+                
+                // Play the audio based on the event type
+                print("\(nextEvent) sound playing at \(currentTime).")
+                // TODO: [Incomplete Feature] Uncomment the below line once the new sounds are imported to assets
+                //audioTimerManager.playSound(sound: nextEvent.1)
+                
+                // Move to the next event in the array
+                workoutEventIndex += 1
+            }
         }
     }
     
