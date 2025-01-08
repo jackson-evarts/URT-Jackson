@@ -57,16 +57,16 @@ class GlobalAudioTimerManager: ObservableObject {
          }
      }
     
-    // Starts the global timer.
-    func startTimer() {
+    // Starts the global timer at -5.
+    func startTimer(at startTime: Int = -5) {
         stopTimer() // Ensure no duplicate timers
+        elapsedTime = startTime // Set the starting time
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
             self.elapsedTime += 1
         }
     }
-    
-    // TODO: [Necessary Feature] Add a function for starting the timer at -5 rather than 0. 
-    
+    // TODO: [Idea] In the settings menu you can make it so that there is a longer buffer to set up phone by having the user set a value for the start time via "startTimer(at: -10)" if the user needed 10 seconds instead of 5. 
+        
     // Stops the global timer.
     func stopTimer() {
         timer?.invalidate()

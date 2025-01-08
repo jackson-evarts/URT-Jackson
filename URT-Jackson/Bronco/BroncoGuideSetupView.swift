@@ -9,7 +9,17 @@ import SwiftUI
 
 struct BroncoGuideSetupView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack{
+            Color.lightGrey // Background color
+                .edgesIgnoringSafeArea(.all) // Fill entire background
+            VStack{
+                Spacer()
+                Text("This feature is coming soon!")
+                Spacer()
+                BackButton(text: "Return to Bronco Menu")
+
+            }
+        }
     }
 }
 
