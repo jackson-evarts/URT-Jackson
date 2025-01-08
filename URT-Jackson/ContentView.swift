@@ -19,7 +19,7 @@ struct ContentView: View {
                 Color.lightGrey // Background color
                     .edgesIgnoringSafeArea(.all) // Fill entire background
                 
-                VStack(spacing: 20) {
+                VStack {
                     Spacer()
                     
                     TitlePage(title: "The", fontSize: 17)
@@ -33,14 +33,14 @@ struct ContentView: View {
                         .aspectRatio(contentMode: .fit) // Maintains the aspect ratio while fitting within the bounds
                         .frame(maxWidth: 200, maxHeight: 200) // Sets a reasonable size limit for the image
                         .frame(maxWidth: .infinity) // Ensures the image is centered horizontally
-
+                    
                     Spacer()
                     
                     /*
-                    CustomNavButton(
-                        text: "Settings",
-                        destination: SettingsView()
-                    )
+                     CustomNavButton(
+                     text: "Settings",
+                     destination: SettingsView()
+                     )
                      */
                     
                     
@@ -48,22 +48,30 @@ struct ContentView: View {
                         text: "Game Simulation",
                         destination: GameSimulationView()
                     )
+                    .padding(.vertical)
                     
                     CustomNavButton(
                         text: "Bronco Menu",
                         destination: BroncoMenuView()
                     )
-
-
+                    
+                    
                     Spacer()
-                }
-            }
+                    
+                    Text("Developed by Jackson Evarts")
+                        .font(.custom("Futura", size: 12))
+                        .foregroundColor(.charcoalGrey)
+                    
+                } // End VStack
+                
+                
+            } // End ZStack
             .navigationTitle("")
-        }
+        } // End NavStack
         .tint(.primaryGold) // Set the tint color for navigation elementsf
 
-    }
-}
+    } // End View
+} // End ContentView
 
 #Preview {
     ContentView()
