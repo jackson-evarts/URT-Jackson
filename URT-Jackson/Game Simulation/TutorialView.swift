@@ -56,6 +56,7 @@ struct TutorialView: View {
             }
             
             BackButton(text: "Return to Intensity Selection")
+                .padding(.bottom)
 
         }
         .navigationTitle("")

@@ -17,7 +17,7 @@ struct BroncoGuideSetupView: View {
                 Text("This feature is coming soon!")
                 Spacer()
                 BackButton(text: "Return to Bronco Menu")
-
+                    .padding(.bottom)
             }
         }
     }

@@ -16,15 +16,23 @@ import AVFoundation
 
 struct TitlePage: View {
     let title: String
+    let fontSize: CGFloat
+
+    // Making the default size 25, but adjustable if needed
+    init(title: String, fontSize: CGFloat = 25) {
+        self.title = title
+        self.fontSize = fontSize
+    }
 
     var body: some View {
         Text(title)
-            .font(.custom("Futura-Bold", size: 25))
+            .font(.custom("Futura-Bold", size: fontSize))
             .foregroundColor(.primaryGold)
             .multilineTextAlignment(.center) // Center-align text
             .frame(maxWidth: .infinity, alignment: .center) // Center horizontally
     }
 }
+
 
 /*
  Stylistic sub-title stripe currently used on the tutorial page.
