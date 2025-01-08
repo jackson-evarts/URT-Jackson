@@ -58,10 +58,12 @@ struct ContentView: View {
                     
                     Spacer()
                     
-                    Text("Developed by Jackson Evarts")
-                        .font(.custom("Futura", size: 12))
+                    Text("Direct Issues and Suggestions to:")
+                        .font(.custom("Futura", size: 10))
                         .foregroundColor(.charcoalGrey)
-                    
+                    Text("devjevvy@gmail.com")
+                        .font(.custom("Futura", size: 10))
+                        .foregroundColor(.charcoalGrey)
                 } // End VStack
                 
                 
