@@ -14,7 +14,7 @@ struct BroncoWorkoutPlayView: View {
     @State private var backgroundColor: Color = .lightGrey // Initialize with a default value (e.g., .clear)
     @Environment(\.dismiss) var dismiss // Used to help navigate back on triple click
     @EnvironmentObject var audioTimerManager: GlobalAudioTimerManager // Access global manager
-
+    
     
     var body: some View {
         ZStack{
@@ -45,7 +45,7 @@ struct BroncoWorkoutPlayView: View {
                     .foregroundColor(Color.white)
                     .font(.custom("Futura", size:20))
                     .padding(.bottom)
-
+                
                 
                 
             }
@@ -57,8 +57,8 @@ struct BroncoWorkoutPlayView: View {
             
             let workoutEvents = buildWorkout(workout: selectedWorkout)
             print("Workout list build: \n\(buildWorkout(workout: selectedWorkout))")
-
-        
+            
+            
             // Initialize the audio session
             audioTimerManager.setupAudioSession()
             
@@ -84,17 +84,13 @@ struct BroncoWorkoutPlayView: View {
     
     /*
      Precondition:
-     Function is passed a valid workout build with the format X-X-...-X where X are integers indicating minutes.
-     
+     Function is passed a valid workout build with the format X-X-...-X where X are integers indicating a number of bronco legs to run in that phase of the workout.
      =====
-     
      Postcondition:
      Function returns a list of tuples of type (Int, String) which represents the timestamps of events in the workout for when and what the app should be announcing. Counting the player into their next leg of the workout, or giving the starting beep.
-     If the workout is 1-1-1-1-1 for example, the buildWorkout would look like follows:
-        [(0, "Beep"), (60, "60s"), (80, "40s"), (90, "30s"), (100, "20s"), (110, "10s"), (115, "5s-0s"), (120, "Beep"), (180, "60s") ... ()]
-     
+     If the workout is "1-2" for example, the buildWorkout would look like follows:
+     [(0, "Beep"), (60, "60s"), (80, "40s"), (90, "30s"), (100, "20s"), (110, "10s"), (115, "5s-0s"), (120, "Beep"), (240, "60s") ... (360, "Beep")]
      */
-    
     func buildWorkout(workout: String) -> [(Int, String)] {
         
         var finalList = [(0, "Beep")]
@@ -116,6 +112,7 @@ struct BroncoWorkoutPlayView: View {
             list.append((startTime + 55, "5s-1s"))
             list.append((startTime + 60, "Beep"))
         }
+        // TODO: [Bug] The final 60s rest shouldn't really have a countdown because it's not counting down to anything.
         
         let workoutGuideArray = stringToIntArray(workout)
         
@@ -134,11 +131,51 @@ struct BroncoWorkoutPlayView: View {
         
         return finalList
     }
+    
+    /*
+     Precondition:
+     The workoutEvents array is NOT empty (important for the force unwrap)
+     eventManagment is passed
+     =====
+     Postcondition:
+     Each time the timer hits a time that is in the workoutEvents array, the program will play the correlated sound associated with the string that is in the workoutEvents array.
+     */
+    func eventManagement(workoutEvents: [(Int, String)]) {
+        var workoutEventIndex = 0
         
+        // Access the global timer
+        // TODO: [Bug Test] See if this works. PlayView eventManagement looks slightly different.
+        let currentTime = audioTimerManager.elapsedTime
+        
+        // If the time is >= the time of the last event
+        // TODO: [Code Improvement] Potentially implement the auto-dismiss feature into PlayView if it works.
+        if currentTime >= workoutEvents.last!.0 {
+            audioTimerManager.stopTimer()
+            dismiss() // Leave the view if you have finished the last event
+            return
+        }
+        
+        let nextEvent = workoutEvents[workoutEventIndex]
+        
+        
+        // Check if the elapsed time matches the event time
+        if currentTime >= nextEvent.0 {
+            
+            // Play the audio based on the event type
+            print("\(nextEvent) sound playing at \(currentTime).")
+            // TODO: [Incomplete Feature] Uncomment the below line once the new sounds are imported to assets
+            //audioTimerManager.playSound(sound: nextEvent.1)
+            
+            // Move to the next event in the array
+            workoutEventIndex += 1
+            
+        }
+    }
+    
 }
 
 #Preview {
     BroncoWorkoutPlayView(selectedWorkout: "1-1-1-1-1-1")
         .environmentObject(GlobalAudioTimerManager()) // Provide the environment object for preview
-
+    
 }

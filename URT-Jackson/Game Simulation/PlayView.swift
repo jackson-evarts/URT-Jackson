@@ -85,45 +85,6 @@ struct PlayView: View {
     }
     
     
-    
-    
-    /*
-     Precondition:
-     ???
-     =====
-     Postcondition:
-     Each time the timer hits a time that is in the gameEvents array, I want the program to play the correlated sound associated with the string that is in the gameEvents array.
-     
-     */
-    func eventManagement(gameEvents: [(Int, String)]) {
-        var gameEventIndex = 0
-        
-        // Start a timer to check elapsedTime periodically
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
-            let currentTime = audioTimerManager.elapsedTime
-            
-            // If all events are processed, invalidate the timer
-            if gameEventIndex >= gameEvents.count {
-                audioTimerManager.stopTimer()
-                return
-            }
-            
-            // Get the next event from the gameEvents array
-            let nextEvent = gameEvents[gameEventIndex]
-            
-            // Check if the elapsed time matches the event time
-            if currentTime >= nextEvent.0 {
-                // Play the audio based on the event type
-                
-                print("\(nextEvent) sound playing at \(currentTime).")
-                audioTimerManager.playSound(sound: nextEvent.1)
-                
-                // Move to the next event in the array
-                gameEventIndex += 1
-            }
-        }
-    }
-    
     /*
      Precondition:
      The user has selected an intensity level (1-5) which is passed to this function as they click 'Play'
@@ -263,6 +224,45 @@ struct PlayView: View {
         
         return timeline.sorted { $0.0 < $1.0 }
     }
+    
+    /*
+     Precondition:
+     ???
+     =====
+     Postcondition:
+     Each time the timer hits a time that is in the gameEvents array, the program will play the correlated sound associated with the string that is in the gameEvents array.
+     
+     */
+    func eventManagement(gameEvents: [(Int, String)]) {
+        var gameEventIndex = 0
+        
+        // Start a timer to check elapsedTime periodically
+        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+            let currentTime = audioTimerManager.elapsedTime
+            
+            // If all events are processed, invalidate the timer
+            if gameEventIndex >= gameEvents.count {
+                audioTimerManager.stopTimer()
+                return
+            }
+            
+            // Get the next event from the gameEvents array
+            let nextEvent = gameEvents[gameEventIndex]
+            
+            // Check if the elapsed time matches the event time
+            if currentTime >= nextEvent.0 {
+                // Play the audio based on the event type
+                
+                print("\(nextEvent) sound playing at \(currentTime).")
+                audioTimerManager.playSound(sound: nextEvent.1)
+                
+                // Move to the next event in the array
+                gameEventIndex += 1
+            }
+        }
+    }
+    
+    
     
     
     
