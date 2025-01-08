@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct BroncoMenuView: View {
+    
+    @EnvironmentObject var audioTimerManager: GlobalAudioTimerManager // Access global manager
+
     var body: some View {
         NavigationStack{
             ZStack {
@@ -58,4 +61,6 @@ struct BroncoMenuView: View {
 
 #Preview {
     BroncoMenuView()
+        .environmentObject(GlobalAudioTimerManager()) // Provide the environment object for preview
+
 }

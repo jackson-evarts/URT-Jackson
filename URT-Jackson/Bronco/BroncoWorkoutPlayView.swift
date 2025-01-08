@@ -33,7 +33,7 @@ struct BroncoWorkoutPlayView: View {
                     .font(.custom("Futura", size:20))
                 Text("\(formattedTime)")
                     .foregroundColor(.white)
-                    .font(.custom("Futura", size:100))
+                    .font(.custom("Futura-Bold", size:120))
                 
                 Spacer()
                 
