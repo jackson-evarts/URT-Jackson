@@ -36,9 +36,14 @@ extension Color {
 struct SettingsView: View {
     
     var body: some View {
-        VStack{
+        ZStack{
+            Color.lightGrey // Background color
+                .edgesIgnoringSafeArea(.all) // Fill entire background
             
-            
+            VStack{
+                
+                
+            }
         }
     }
     
