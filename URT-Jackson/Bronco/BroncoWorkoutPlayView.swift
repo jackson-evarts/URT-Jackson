@@ -94,6 +94,10 @@ struct BroncoWorkoutPlayView: View {
             audioTimerManager.stopTimer()
             audioTimerManager.elapsedTime = -5
         }
+        .onTapGesture(count: 1) { // Detect single tap
+            // TODO: [Feature] Make it so on a single tap the "Time on Current Phase" is saved and displayed on the current screen, and on the final page when the app is saying congratulations. 
+        }
+        
         
         
         .onDisappear(){ // Timer stops when the view is put away
@@ -187,8 +191,7 @@ struct BroncoWorkoutPlayView: View {
                 // Play the audio based on the event type
                 print("\(nextEvent) sound playing at \(currentTime).")
                 
-                // TODO: [Incomplete Feature] Uncomment the below line once the new sounds are imported to assets
-                //audioTimerManager.playSound(sound: nextEvent.1)
+                audioTimerManager.playSound(sound: nextEvent.1)
                 
                 // Close the view when you reach "Done" in the events list
                 if nextEvent.1 == "Done" {

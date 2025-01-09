@@ -39,7 +39,7 @@ class GlobalAudioTimerManager: ObservableObject {
      Postcondition:
      The correlated audio to the details passed is played for the user.
      */
-    func playSound(sound: String, type: String = "m4a") {
+    func playSound(sound: String, type: String = "mp3") {
          if let path = Bundle.main.path(forResource: sound, ofType: type) {
              let url = URL(fileURLWithPath: path)
              do {

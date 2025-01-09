@@ -220,7 +220,7 @@ struct PlayView: View {
             addEvent(event, delay: Int.random(in: avgInterval - 10...avgInterval + 10))
         }
         
-        addEvent("Full-time", delay: 900 - currentTime) // Ensure full-time at 900 seconds
+        addEvent("Fulltime", delay: 900 - currentTime) // Ensure full-time at 900 seconds
         
         return timeline.sorted { $0.0 < $1.0 }
     }
