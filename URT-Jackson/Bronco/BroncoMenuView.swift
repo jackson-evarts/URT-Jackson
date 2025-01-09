@@ -33,7 +33,7 @@ struct BroncoMenuView: View {
                     Spacer()
                     
                     CustomNavButton(
-                        text: "Bronco Workouts",
+                        text: "Broken Bronco Workouts",
                         destination: BroncoWorkoutsView()
                     )
                     

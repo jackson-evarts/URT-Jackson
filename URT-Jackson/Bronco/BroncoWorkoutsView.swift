@@ -20,7 +20,7 @@ struct BroncoWorkoutsView: View {
         "Run three bronco legs, take around a minute break, then run another two bronco legs.\nSuggestion: This one is beneficial for practicing running at your desired bronco pace.\n🙂🙂🙂🙂🙂",
         "With around a one minute break in between sets, do a set of: two bronco legs, two bronco legs, one bronco leg, one bronco leg.\nSuggestion: Try to run the first four bronco legs at your desired bronco pace, and then burnout on the last last two legs at full effort.\n🙂🙂🙂🙂💀💀",
         "Run five bronco legs at maximum speed every two minutes for a total of five legs.\nSuggestion: Gun it on these. You get a one minute break so you should be running full tilt every leg.\n💀💀💀💀💀",
-        "Run one bronco leg at maximum (possible) speed every two minutes for a total of ten legs. Test your mental. Why are you doing this to yourself?\nSuggestion: Dig deep dawg. Godspeed.\n💀💀💀💀💀💀💀💀💀🤢",
+        "Run one bronco leg at maximum (possible) speed every two minutes for a total of ten legs. Test your mental. Why are you doing this to yourself?\nSuggestion: Dig deep dawg. Godspeed.\n💀💀💀💀💀💀💀🤢🤢🤢",
     ]
     
     @State private var selectedIndex: Int = 0
@@ -39,9 +39,9 @@ struct BroncoWorkoutsView: View {
                 VStack(spacing: 0) {
                     
                     // MARK: - Scrollable Content
-                    ScrollView(showsIndicators: false) {
+                    ScrollView() {
                         VStack {
-                            FullWidthTextStripe(text: "Workout Description:")
+                            FullWidthTextStripe(text: "Workout Description")
                             
                             Text(menuDescriptions[selectedIndex])
                                 .font(.custom("Futura", size: 16))
@@ -53,7 +53,7 @@ struct BroncoWorkoutsView: View {
                                 .cornerRadius(8)
                                 .padding(.bottom, 10)
                             
-                            FullWidthTextStripe(text: "Workout Selection:")
+                            FullWidthTextStripe(text: "Workout Selection")
                             
                             // Swipeable Menu
                             ZStack(alignment: .leading) {
@@ -101,7 +101,16 @@ struct BroncoWorkoutsView: View {
                                     }
                             )
                         }
+                        
+                        /*
+                        FullWidthTextStripe(text: "Setup")
+                        
+                        JustifiedText(text: "Prop your phone on a shoe on the baseline and press play.")
+                            .padding(.bottom)
+                         */
                     }
+                    
+                    
                     
                     // MARK: - Bottom Fixed Elements
                     VStack {

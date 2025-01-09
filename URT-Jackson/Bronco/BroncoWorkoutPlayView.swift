@@ -15,6 +15,8 @@ struct BroncoWorkoutPlayView: View {
     @Environment(\.dismiss) var dismiss // Used to help navigate back on triple click
     @EnvironmentObject var audioTimerManager: GlobalAudioTimerManager // Access global manager
     
+    @State private var timeAtBeep: Int = 0
+    
     
     var body: some View {
         ZStack{
@@ -26,16 +28,33 @@ struct BroncoWorkoutPlayView: View {
                     let seconds = audioTimerManager.elapsedTime % 60
                     return String(format: "%02d:%02d", minutes, seconds) // Format as MM:SS
                 }
+                
+                var currentPhaseFormattedTime: String{
+                    let minutes = (audioTimerManager.elapsedTime - timeAtBeep) / 60
+                    let seconds = (audioTimerManager.elapsedTime - timeAtBeep) % 60
+                    return String(format: "%02d:%02d", minutes, seconds) // Format as MM:SS
+                }
+                
                 Spacer()
                 
-                Text("Elapsed Time:")
+                // TODO: [Necessary Feature] Set this so that each time it beeps this time resets to 0
+                Text("Time on Current Phase")
+                    .foregroundColor(.white)
+                    .font(.custom("Futura", size:20))
+                Text("\(currentPhaseFormattedTime)")
+                    .foregroundColor(.white)
+                    .font(.custom("Futura-Bold", size:100))
+                
+                Spacer()
+                
+                Text("Total Workout Time:")
                     .foregroundColor(.white)
                     .font(.custom("Futura", size:20))
                 Text("\(formattedTime)")
                     .foregroundColor(.white)
-                    .font(.custom("Futura-Bold", size:120))
+                    .font(.custom("Futura-Bold", size:20))
+                    .padding(.bottom)
                 
-                Spacer()
                 
                 Text("Triple Tap to Return to Menu")
                     .foregroundColor(.white)
@@ -175,6 +194,11 @@ struct BroncoWorkoutPlayView: View {
                 if nextEvent.1 == "Done" {
                     dismiss()
                     // TODO: [Feature Idea] Send the user into a seperate view that's like "Good Job" or something encouraging. Maybe let them share it to social?
+                }
+                
+                if nextEvent.1 == "Beep" {
+                    timeAtBeep = audioTimerManager.elapsedTime
+                    
                 }
                 
                 // Move to the next event in the array
