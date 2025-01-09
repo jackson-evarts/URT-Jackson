@@ -93,18 +93,17 @@ struct BroncoWorkoutPlayView: View {
      [(0, "Beep"), (60, "60s"), (80, "40s"), (90, "30s"), (100, "20s"), (110, "10s"), (115, "5s-0s"), (120, "Beep"), (240, "60s") ... (360, "Beep")]
      */
     func buildWorkout(workout: String) -> [(Int, String)] {
-        
         var finalList = [(0, "Beep")]
         var traceTime = 0
         
         // Converts a workout string (e.g., "1-1-2") to an array of integers [1, 1, 2]
         func stringToIntArray(_ input: String) -> [Int] {
             return input
-                .split(separator: "-") // Split the string by "-"
-                .compactMap { Int($0) } // Convert each substring to Int, skipping invalid ones
+                .split(separator: "-")
+                .compactMap { Int($0) }
         }
         
-        func buildCountdown(_ list: inout [(Int, String)], startTime: Int){
+        func buildCountdown(_ list: inout [(Int, String)], startTime: Int) {
             list.append((startTime, "60s"))
             list.append((startTime + 20, "40s"))
             list.append((startTime + 30, "30s"))
@@ -113,30 +112,36 @@ struct BroncoWorkoutPlayView: View {
             list.append((startTime + 55, "5s-1s"))
             list.append((startTime + 60, "Beep"))
         }
-        // TODO: [Bug] The final 60s rest shouldn't really have a countdown because it's not counting down to anything.
+        
+        func lastLegBuildCountdown(_ list: inout [(Int, String)], startTime: Int) {
+            // 30 seconds extra in case user is going very slow.
+            list.append((startTime + 30, "Done"))
+            print("\nTime Appended to the Workout Build in lastLeg Func: \(startTime+60)")
+        }
         
         let workoutGuideArray = stringToIntArray(workout)
         
-        
-        for legs in workoutGuideArray {
-            
+        for (index, legs) in workoutGuideArray.enumerated() {
             // Workout time. User should be running for ~this amount of time
             traceTime += legs * 60
             
-            // Passing finalList by reference for buildCounter to append countdown items to list
-            buildCountdown(&finalList, startTime: traceTime)
-            traceTime += 60 // Updating the traceTime to after the rest time countdown.
-            
-            
+            if index == workoutGuideArray.count - 1 {
+                // Call lastLegBuildCountdown for the last leg
+                lastLegBuildCountdown(&finalList, startTime: traceTime)
+            } else {
+                // Call buildCountdown for all other legs
+                buildCountdown(&finalList, startTime: traceTime)
+                traceTime += 60 // Update traceTime for rest countdown
+            }
         }
         
         return finalList
     }
     
-    // TODO: [Code Improvement] This function is identical to the PlayView version except this one doesn't have sounds implemented yet. Look for opportunity for code reusability once the audios are done.
+    
     /*
      Precondition:
-
+     
      =====
      Postcondition:
      Each time the timer hits a time that is in the workoutEvents array, the program will play the correlated sound associated with the string that is in the workoutEvents array.
@@ -162,8 +167,15 @@ struct BroncoWorkoutPlayView: View {
                 
                 // Play the audio based on the event type
                 print("\(nextEvent) sound playing at \(currentTime).")
+                
                 // TODO: [Incomplete Feature] Uncomment the below line once the new sounds are imported to assets
                 //audioTimerManager.playSound(sound: nextEvent.1)
+                
+                // Close the view when you reach "Done" in the events list
+                if nextEvent.1 == "Done" {
+                    dismiss()
+                    // TODO: [Feature Idea] Send the user into a seperate view that's like "Good Job" or something encouraging. Maybe let them share it to social?
+                }
                 
                 // Move to the next event in the array
                 workoutEventIndex += 1
