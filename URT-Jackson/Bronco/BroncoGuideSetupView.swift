@@ -14,7 +14,13 @@ struct BroncoGuideSetupView: View {
                 .edgesIgnoringSafeArea(.all) // Fill entire background
             VStack{
                 Spacer()
-                Text("This feature is under development.")
+                Image("Construction")
+                    .resizable() // Allows resizing of the image
+                    .aspectRatio(contentMode: .fit) // Maintains the aspect ratio while fitting within the bounds
+                    .frame(maxWidth: 200, maxHeight: 200) // Sets a reasonable size limit for the image
+                    .frame(maxWidth: .infinity) // Ensures the image is centered horizontally
+                
+                JustifiedText(text: "This feature is under development.")
                 Spacer()
                 BackButton(text: "Return to Bronco Menu")
                     .padding(.bottom)
