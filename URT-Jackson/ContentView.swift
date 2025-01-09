@@ -22,9 +22,10 @@ struct ContentView: View {
                 VStack {
                     Spacer()
                     
-                    TitlePage(title: "The", fontSize: 17)
-                        .padding(.bottom, -15)
-                    TitlePage(title: "Ultimate Rugby Trainer")
+                    TitlePage(title: "TryTime", fontSize: 60)
+                        .padding(.bottom, 2)
+                    TitlePage(title: "The Anytime Personal Rugby Trainer", fontSize: 17)
+
                     
                     Spacer()
                     
