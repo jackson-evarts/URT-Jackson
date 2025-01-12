@@ -11,6 +11,7 @@ struct ContentView: View {
     
     @StateObject private var audioTimerManager = GlobalAudioTimerManager()
     
+    // TODO: [Bug] Fix audio ducking! Not working on iPhone for some reason. 
     
     var body: some View {
         NavigationStack {

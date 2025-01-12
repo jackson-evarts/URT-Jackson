@@ -16,6 +16,10 @@ struct TutorialView: View {
     
     var body: some View {
         ZStack(alignment: .bottom) {
+            Color.lightGrey // Background color
+                .edgesIgnoringSafeArea(.all) // Fill entire background
+
+            
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
                     
