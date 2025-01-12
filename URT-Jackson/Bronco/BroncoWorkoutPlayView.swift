@@ -17,6 +17,7 @@ struct BroncoWorkoutPlayView: View {
     
     @State private var timeAtBeep: Int = 0
     
+    @State private var eventTimer: Timer?
     
     var body: some View {
         ZStack{
@@ -95,13 +96,15 @@ struct BroncoWorkoutPlayView: View {
             audioTimerManager.elapsedTime = -5
         }
         .onTapGesture(count: 1) { // Detect single tap
-            // TODO: [Feature] Make it so on a single tap the "Time on Current Phase" is saved and displayed on the current screen, and on the final page when the app is saying congratulations. 
+            // TODO: [Feature] Make it so on a single tap the "Time on Current Phase" is saved and displayed on the current screen, and on the final page when the app is saying congratulations.
         }
         
         
         
-        .onDisappear(){ // Timer stops when the view is put away
+        .onDisappear() {
             audioTimerManager.stopTimer()
+            eventTimer?.invalidate()
+            eventTimer = nil // Clean up
         }
     }
     
@@ -172,7 +175,7 @@ struct BroncoWorkoutPlayView: View {
     func eventManagement(workoutEvents: [(Int, String)]) {
         var workoutEventIndex = 0
         
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+        eventTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
             let currentTime = audioTimerManager.elapsedTime
             
             // If the time is >= the time of the last event

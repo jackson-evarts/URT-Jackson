@@ -19,6 +19,7 @@ struct PlayView: View {
     
     @EnvironmentObject var audioTimerManager: GlobalAudioTimerManager // Access global manager
     
+    @State private var eventTimer: Timer?
     
     var body: some View {
         ZStack{
@@ -79,8 +80,10 @@ struct PlayView: View {
         }
         
         
-        .onDisappear(){ // Timer stops when the view is put away
+        .onDisappear() {
             audioTimerManager.stopTimer()
+            eventTimer?.invalidate()
+            eventTimer = nil // Clean up
         }
     }
     
@@ -237,7 +240,7 @@ struct PlayView: View {
         var gameEventIndex = 0
         
         // Start a timer to check elapsedTime periodically
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+        eventTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
             let currentTime = audioTimerManager.elapsedTime
             
             // If all events are processed, invalidate the timer
@@ -260,8 +263,11 @@ struct PlayView: View {
                 // Move to the next event in the array
                 gameEventIndex += 1
             }
+            
         }
+        
     }
+        
     
     
     
