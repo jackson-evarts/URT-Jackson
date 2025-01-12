@@ -18,58 +18,82 @@ struct BroncoWorkoutPlayView: View {
     @State private var timeAtBeep: Int = 0
     
     @State private var eventTimer: Timer?
+    @State private var showSummary: Bool = false
+
+    @State private var splits: [String] = [] // List to hold saved split times
+    
+    
+    // Computed property for `currentPhaseFormattedTime`
+    private var currentPhaseFormattedTime: String {
+        let elapsed = audioTimerManager.elapsedTime - timeAtBeep
+        let minutes = elapsed / 60
+        let seconds = elapsed % 60
+        return String(format: "%02d:%02d", minutes, seconds)
+    }
+    
     
     var body: some View {
-        ZStack{
-            backgroundColor.edgesIgnoringSafeArea(.all)
-            VStack{
-                
-                var formattedTime: String {
-                    let minutes = audioTimerManager.elapsedTime / 60
-                    let seconds = audioTimerManager.elapsedTime % 60
-                    return String(format: "%02d:%02d", minutes, seconds) // Format as MM:SS
-                }
-                
-                var currentPhaseFormattedTime: String{
-                    let minutes = (audioTimerManager.elapsedTime - timeAtBeep) / 60
-                    let seconds = (audioTimerManager.elapsedTime - timeAtBeep) % 60
-                    return String(format: "%02d:%02d", minutes, seconds) // Format as MM:SS
-                }
-                
-                Spacer()
-                
-                // TODO: [Necessary Feature] Set this so that each time it beeps this time resets to 0
-                Text("Time on Current Phase")
-                    .foregroundColor(.white)
-                    .font(.custom("Futura", size:20))
-                Text("\(currentPhaseFormattedTime)")
-                    .foregroundColor(.white)
-                    .font(.custom("Futura-Bold", size:100))
-                
-                Spacer()
-                
-                Text("Total Workout Time:")
-                    .foregroundColor(.white)
-                    .font(.custom("Futura", size:20))
-                Text("\(formattedTime)")
-                    .foregroundColor(.white)
-                    .font(.custom("Futura-Bold", size:20))
-                    .padding(.bottom)
-                
-                
-                Text("Triple Tap to Return to Menu")
-                    .foregroundColor(.white)
-                    .font(.custom("Futura", size:20))
-                
-                Text("Selected workout: \(selectedWorkout)")
-                    .foregroundColor(Color.white)
-                    .font(.custom("Futura", size:20))
-                    .padding(.bottom)
-                
-                
-                
-            }
-        }
+        NavigationStack{
+            ZStack{
+                backgroundColor.edgesIgnoringSafeArea(.all)
+                VStack{
+                    
+                    var formattedTime: String {
+                        let minutes = audioTimerManager.elapsedTime / 60
+                        let seconds = audioTimerManager.elapsedTime % 60
+                        return String(format: "%02d:%02d", minutes, seconds) // Format as MM:SS
+                    }
+                    
+                    Spacer()
+                    
+                    // TODO: [Necessary Feature] Set this so that each time it beeps this time resets to 0
+                    Text("Time on Current Phase")
+                        .foregroundColor(.white)
+                        .font(.custom("Futura", size:20))
+                    Text("\(currentPhaseFormattedTime)")
+                        .foregroundColor(.white)
+                        .font(.custom("Futura-Bold", size:100))
+                    
+                    Spacer()
+                    
+                    if !splits.isEmpty {
+                        Text("Splits:")
+                            .foregroundColor(.white)
+                            .font(.custom("Futura", size: 20))
+                        ForEach(splits, id: \.self) { split in
+                            Text(split)
+                                .foregroundColor(.white)
+                                .font(.custom("Futura", size: 16))
+                        }
+                    }
+                    
+                    
+                    Text("Total Workout Time:")
+                        .foregroundColor(.white)
+                        .font(.custom("Futura", size:20))
+                        .padding(.top)
+                    Text("\(formattedTime)")
+                        .foregroundColor(.white)
+                        .font(.custom("Futura-Bold", size:20))
+                        .padding(.bottom)
+                    
+                    
+                    Text("Triple Tap to Return to Menu")
+                        .foregroundColor(.white)
+                        .font(.custom("Futura", size:20))
+                    
+                    Text("Selected workout: \(selectedWorkout)")
+                        .foregroundColor(Color.white)
+                        .font(.custom("Futura", size:20))
+                        .padding(.bottom)
+                    
+                    
+                    
+                    
+                    
+                } // End VStack
+            } // End ZStack
+        } // End NavigationStack
         .onAppear{
             
             // Start the timer immediately as the screen is brought up
@@ -89,6 +113,9 @@ struct BroncoWorkoutPlayView: View {
                 backgroundColor = Color.black
             }
         }
+        .navigationDestination(isPresented: $showSummary) {
+            BroncoWorkoutSummaryView(splits: splits)
+        }
         .navigationBarBackButtonHidden(true)
         .onTapGesture(count: 3) { // Detect triple tap
             dismiss() // Navigate back on triple tap
@@ -96,8 +123,23 @@ struct BroncoWorkoutPlayView: View {
             audioTimerManager.elapsedTime = -5
         }
         .onTapGesture(count: 1) { // Detect single tap
-            // TODO: [Feature] Make it so on a single tap the "Time on Current Phase" is saved and displayed on the current screen, and on the final page when the app is saying congratulations.
+            // TODO: [Under Construction Feature] Make it so on a single tap the "Time on Current Phase" is saved and displayed on the current screen, and on the final page when the app is saying congratulations.
+            
+            splits.append(currentPhaseFormattedTime) // Save the current phase time
+            print("Saved split: \(currentPhaseFormattedTime)")
+            
         }
+        // TODO: REMOVE ALL THIS STUFF! JUST FOR EASIER TESTING:
+        .onTapGesture(count: 2) { // Detect single tap
+            audioTimerManager.stopTimer()
+            eventTimer?.invalidate()
+            eventTimer = nil // Clean up
+            
+            showSummary = true
+
+            
+        }
+        
         
         
         
@@ -198,8 +240,7 @@ struct BroncoWorkoutPlayView: View {
                 
                 // Close the view when you reach "Done" in the events list
                 if nextEvent.1 == "Done" {
-                    dismiss()
-                    // TODO: [Feature Idea] Send the user into a seperate view that's like "Good Job" or something encouraging. Maybe let them share it to social?
+                    showSummary = true                    // TODO: [Feature Idea] Send the user into a seperate view that's like "Good Job" or something encouraging. Maybe let them share it to social?
                 }
                 
                 if nextEvent.1 == "Beep" {
