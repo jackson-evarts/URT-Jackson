@@ -16,9 +16,7 @@ struct GameSimulationView: View {
     @State private var currentImageIndex = 0
     @State private var showTip: Bool = false // State for showing the tip
     
-    
-    // TODO: [Question] Does initializing this class on multiple views that don't use it (which I did to fix a Preview Crash bug) defeat the purpose of having a globally declared class? Am I adding heavy baggage to my app? v
-    @StateObject private var audioTimerManager = GlobalAudioTimerManager()
+        @StateObject private var audioTimerManager = GlobalAudioTimerManager()
     
     
     
@@ -36,7 +34,6 @@ struct GameSimulationView: View {
                     
                     Spacer()
                     
-                    // TODO: [Feature] Do a gravestone instead? S.O. Mikas
                     Image(intensity == 5 ? "Skull" : "Posts") // Dynamically switch the image
                         .resizable()
                         .aspectRatio(contentMode: .fit)

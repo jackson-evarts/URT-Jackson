@@ -46,7 +46,6 @@ struct BroncoWorkoutPlayView: View {
                     
                     Spacer()
                     
-                    // TODO: [Necessary Feature] Set this so that each time it beeps this time resets to 0
                     Text("Time on Current Phase")
                         .foregroundColor(.white)
                         .font(.custom("Futura", size:20))
@@ -114,13 +113,15 @@ struct BroncoWorkoutPlayView: View {
             }
         }
         .navigationDestination(isPresented: $showSummary) {
-            BroncoWorkoutSummaryView(splits: splits)
+            BroncoWorkoutSummaryView(splits: splits, workout: selectedWorkout)
         }
         .navigationBarBackButtonHidden(true)
         .onTapGesture(count: 3) { // Detect triple tap
-            dismiss() // Navigate back on triple tap
             audioTimerManager.stopTimer()
-            audioTimerManager.elapsedTime = -5
+            eventTimer?.invalidate()
+            eventTimer = nil // Clean up
+            
+            showSummary = true
         }
         .onTapGesture(count: 1) { // Detect single tap
             // TODO: [Under Construction Feature] Make it so on a single tap the "Time on Current Phase" is saved and displayed on the current screen, and on the final page when the app is saying congratulations.
@@ -129,20 +130,6 @@ struct BroncoWorkoutPlayView: View {
             print("Saved split: \(currentPhaseFormattedTime)")
             
         }
-        // TODO: REMOVE ALL THIS STUFF! JUST FOR EASIER TESTING:
-        .onTapGesture(count: 2) { // Detect single tap
-            audioTimerManager.stopTimer()
-            eventTimer?.invalidate()
-            eventTimer = nil // Clean up
-            
-            showSummary = true
-
-            
-        }
-        
-        
-        
-        
         .onDisappear() {
             audioTimerManager.stopTimer()
             eventTimer?.invalidate()
@@ -240,7 +227,8 @@ struct BroncoWorkoutPlayView: View {
                 
                 // Close the view when you reach "Done" in the events list
                 if nextEvent.1 == "Done" {
-                    showSummary = true                    // TODO: [Feature Idea] Send the user into a seperate view that's like "Good Job" or something encouraging. Maybe let them share it to social?
+                    showSummary = true
+                    // TODO: [Feature Idea] Send the user into a seperate view that's like "Good Job" or something encouraging. Maybe let them share it to social?
                 }
                 
                 if nextEvent.1 == "Beep" {
