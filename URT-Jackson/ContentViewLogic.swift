@@ -72,6 +72,7 @@ struct JustifiedText: View {
             .multilineTextAlignment(.leading) // Justifies the text
             .padding(.horizontal, 20) // Pads off the sides of the screen
             .lineLimit(nil) // Ensures no truncation
+            .foregroundColor(.black)
         
     }
 }
