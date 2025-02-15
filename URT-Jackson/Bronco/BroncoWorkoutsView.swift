@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct BroncoWorkoutsView: View {
+    @Binding var path: NavigationPath
     
     let menuItems: [String] = [
         "3-2",
@@ -158,6 +159,6 @@ struct BroncoWorkoutsView: View {
 }
 
 #Preview {
-    BroncoWorkoutsView()
+    BroncoWorkoutsView(path: .constant(NavigationPath()))
         .environmentObject(GlobalAudioTimerManager())
 }

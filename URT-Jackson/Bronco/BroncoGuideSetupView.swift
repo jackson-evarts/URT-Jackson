@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct BroncoGuideSetupView: View {
+    @Binding var path: NavigationPath
+    
     var body: some View {
         ZStack{
             Color.lightGrey // Background color
@@ -22,7 +24,7 @@ struct BroncoGuideSetupView: View {
                 
                 JustifiedText(text: "This feature is under development.")
                 Spacer()
-                BackButton(text: "Return to Bronco Menu")
+                BackButton(text: "Return to Bronco Menu", path: $path)
                     .padding(.bottom)
             }
         }
@@ -30,5 +32,5 @@ struct BroncoGuideSetupView: View {
 }
 
 #Preview {
-    BroncoGuideSetupView()
+    BroncoGuideSetupView(path: .constant(NavigationPath()))
 }

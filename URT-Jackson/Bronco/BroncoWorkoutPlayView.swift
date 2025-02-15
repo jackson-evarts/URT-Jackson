@@ -11,6 +11,9 @@ struct BroncoWorkoutPlayView: View {
     let selectedWorkout: String
     // TODO: [Idea] Switch that you can choose to have the stopwatch vertical or horizontal on the screen. This should be remembered by the app so the user only changes it once and then it is forever stored by the app as a default.
     
+    @Binding var path: NavigationPath
+
+    
     @State private var backgroundColor: Color = .lightGrey // Initialize with a default value (e.g., .clear)
     @Environment(\.dismiss) var dismiss // Used to help navigate back on triple click
     @EnvironmentObject var audioTimerManager: GlobalAudioTimerManager // Access global manager
@@ -245,7 +248,7 @@ struct BroncoWorkoutPlayView: View {
 }
 
 #Preview {
-    BroncoWorkoutPlayView(selectedWorkout: "1-1-1-1-1-1")
+    BroncoWorkoutPlayView(selectedWorkout: "1-1-1-1-1-1", path: .constant(NavigationPath()))
         .environmentObject(GlobalAudioTimerManager()) // Provide the environment object for preview
     
 }

@@ -11,6 +11,8 @@ struct BroncoWorkoutSummaryView: View {
     let splits: [String]
     @Environment(\.dismiss) var dismiss // Used to help navigate back on triple click
     let workout: String
+    @Binding var path: NavigationPath
+
 
     var body: some View {
         
@@ -74,6 +76,6 @@ struct BroncoWorkoutSummaryView: View {
 
 
 #Preview {
-    BroncoWorkoutSummaryView(splits: ["00:50","00:43","00:51","00:43","1:02"], workout: "1-1-1-1-1")
+    BroncoWorkoutSummaryView(splits: ["00:50","00:43","00:51","00:43","1:02"], workout: "1-1-1-1-1", path: .constant(NavigationPath()))
         .environmentObject(GlobalAudioTimerManager())
 }

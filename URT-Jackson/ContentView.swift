@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
-    
+    @State private var path = NavigationPath()
     @StateObject private var audioTimerManager = GlobalAudioTimerManager()
     
     // TODO: [Bug] Fix audio ducking! Not working on iPhone for some reason. 
     
     var body: some View {
-        NavigationStack {
+        NavigationStack (path: $path){
             ZStack {
                 // Background color filling the entire screen
                 Color.lightGrey // Background color
@@ -25,16 +25,26 @@ struct ContentView: View {
                     
                     TitlePage(title: "TryTime", fontSize: 60)
                         .padding(.bottom, 2)
-                    TitlePage(title: "The Anytime Personal Rugby Trainer", fontSize: 17)
+                    TitlePage(
+                        title: "The Anytime Personal Rugby Trainer",
+                        fontSize: 17
+                    )
 
                     
                     Spacer()
                     
                     Image("Cap")
                         .resizable() // Allows resizing of the image
-                        .aspectRatio(contentMode: .fit) // Maintains the aspect ratio while fitting within the bounds
-                        .frame(maxWidth: 200, maxHeight: 200) // Sets a reasonable size limit for the image
-                        .frame(maxWidth: .infinity) // Ensures the image is centered horizontally
+                        .aspectRatio(
+                            contentMode: .fit
+                        ) // Maintains the aspect ratio while fitting within the bounds
+                        .frame(
+                            maxWidth: 200,
+                            maxHeight: 200
+                        ) // Sets a reasonable size limit for the image
+                        .frame(
+                            maxWidth: .infinity
+                        ) // Ensures the image is centered horizontally
                     
                     Spacer()
                     
@@ -48,13 +58,17 @@ struct ContentView: View {
                     
                     CustomNavButton(
                         text: "Game Simulation",
-                        destination: GameSimulationView()
+                        destinationID: "GameSimulationView",
+                        path: $path
                     )
+
+                    
                     .padding(.vertical)
                     
                     CustomNavButton(
                         text: "Bronco Menu",
-                        destination: BroncoMenuView()
+                        destinationID: "BroncoMenuView",
+                        path: $path
                     )
                     
                     
@@ -79,6 +93,8 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
-        .environmentObject(GlobalAudioTimerManager()) // Inject GlobalAudioTimerManager
+        .environmentObject(
+            GlobalAudioTimerManager()
+        ) // Inject GlobalAudioTimerManager
 
 }

@@ -10,6 +10,7 @@ import SwiftUI
 // TODO: [Feature] Make this a tutorial view menu, where you can select text or video. Make a no-connection error pop up for clicking the video without wifi. Maybe the photo for the page could be a graduation cap?
 
 struct TutorialView: View {
+    @Binding var path: NavigationPath
     
     // Allows me to dismiss the current screen simulating the effects of the back button
     @Environment(\.dismiss) var dismiss
@@ -60,7 +61,7 @@ struct TutorialView: View {
                 .padding(.top, 20)
             }
             
-            BackButton(text: "Return to Intensity Selection")
+            BackButton(text: "Return to Intensity Selection", path: $path)
                 .padding(.bottom)
 
         }
@@ -71,5 +72,5 @@ struct TutorialView: View {
 // TODO: [Idea] chef up some graphics/photos for how to play the game. This can be done at the end of development
 
 #Preview {
-    TutorialView()
+    TutorialView(path: .constant(NavigationPath()))
 }

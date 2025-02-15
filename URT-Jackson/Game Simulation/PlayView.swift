@@ -20,6 +20,8 @@ struct PlayView: View {
     @EnvironmentObject var audioTimerManager: GlobalAudioTimerManager // Access global manager
     
     @State private var eventTimer: Timer?
+    @Binding var path: NavigationPath
+
     
     var body: some View {
         ZStack{
@@ -276,7 +278,7 @@ struct PlayView: View {
 }
 
 #Preview {
-    PlayView(intensity: 3)
+    PlayView(intensity: 3, path: .constant(NavigationPath()))
         .environmentObject(GlobalAudioTimerManager()) // Provide the environment object for preview
     
 }

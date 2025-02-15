@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct BroncoMenuView: View {
+    @Binding var path: NavigationPath
     
     @EnvironmentObject var audioTimerManager: GlobalAudioTimerManager // Access global manager
 
@@ -44,7 +45,7 @@ struct BroncoMenuView: View {
                     .padding(.vertical)
 
                     
-                    BackButton(text: "Return to Main Menu")
+                    BackButton(text: "Return to Main Menu", path: $path)
                     
                     
                     Spacer()
@@ -60,7 +61,7 @@ struct BroncoMenuView: View {
 } // End struct
 
 #Preview {
-    BroncoMenuView()
+    BroncoMenuView(path: .constant(NavigationPath()))
         .environmentObject(GlobalAudioTimerManager()) // Provide the environment object for preview
 
 }

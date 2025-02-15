@@ -15,8 +15,9 @@ struct GameSimulationView: View {
     @State private var intensity: Double = 3.0
     @State private var currentImageIndex = 0
     @State private var showTip: Bool = false // State for showing the tip
-    
-        @StateObject private var audioTimerManager = GlobalAudioTimerManager()
+    @Binding var path: NavigationPath
+
+    @StateObject private var audioTimerManager = GlobalAudioTimerManager()
     
     
     
@@ -34,11 +35,13 @@ struct GameSimulationView: View {
                     
                     Spacer()
                     
-                    Image(intensity == 5 ? "Skull" : "Posts") // Dynamically switch the image
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(maxWidth: 200, maxHeight: 200)
-                        .frame(maxWidth: .infinity)
+                    Image(
+                        intensity == 5 ? "Skull" : "Posts"
+                    ) // Dynamically switch the image
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(maxWidth: 200, maxHeight: 200)
+                    .frame(maxWidth: .infinity)
                     
                     Text("Intensity")
                         .font(.custom("Futura", size: 24))
@@ -49,17 +52,26 @@ struct GameSimulationView: View {
                     BouncingSlider(value: $intensity)
                         .padding(.horizontal, 30)
                     
+                    /*
+                     // TODO: [Bug] Something has to chnage with the current nav button because this one cannot take params with the passed location for some reason smh.
                     CustomNavButton(
                         text: "Play at Intensity \(Int(intensity))",
                         destination: PlayView(intensity: Int(intensity))
                     )
                     
                     CustomNavButton(
+                        text: "Play at Intensity \(Int(intensity))",
+                        destinationID: "PlayView",
+                        path: $path
+                    )
+                     */
+                    
+                    CustomNavButton(
                         text: "Tutorial",
                         destination: TutorialView()
                     )
                     
-                    BackButton(text: "Return to Main Menu")
+                    BackButton(text: "Return to Main Menu", path: $path)
                         .padding(.bottom)
                 }
                 .navigationTitle("")
@@ -70,14 +82,17 @@ struct GameSimulationView: View {
             // Show the tip only if it's the first time
             if !UserDefaults.standard.bool(forKey: "hasSeenGameSimulationTip") {
                 showTip = true
-                UserDefaults.standard.set(true, forKey: "hasSeenGameSimulationTip")
+                UserDefaults.standard
+                    .set(true, forKey: "hasSeenGameSimulationTip")
             }
         }
         .sheet(isPresented: $showTip) {
             ZStack {
                 // Full-screen background color
                 Color.lightGrey
-                    .edgesIgnoringSafeArea(.all) // Ensures the color fills the entire sheet
+                    .edgesIgnoringSafeArea(
+                        .all
+                    ) // Ensures the color fills the entire sheet
                 
                 // Content of the sheet
                 VStack(spacing: 20) {
@@ -85,11 +100,13 @@ struct GameSimulationView: View {
                         .font(.custom("Futura-Bold", size: 30))
                         .foregroundColor(.primaryGold)
                     
-                    Text("Check out the tutorial for gameplay instruction and helpful training tips!")
-                        .font(.custom("Futura", size: 20))
-                        .multilineTextAlignment(.center)
-                        .foregroundColor(.darkGrey)
-                        .padding()
+                    Text(
+                        "Check out the tutorial for gameplay instruction and helpful training tips!"
+                    )
+                    .font(.custom("Futura", size: 20))
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.darkGrey)
+                    .padding()
                     
                     Button(action: {
                         showTip = false
@@ -112,7 +129,9 @@ struct GameSimulationView: View {
 }
 
 #Preview {
-    GameSimulationView()
-        .environmentObject(GlobalAudioTimerManager()) // Inject GlobalAudioTimerManager
+    GameSimulationView(path: .constant(NavigationPath()))
+        .environmentObject(
+            GlobalAudioTimerManager()
+        ) // Inject GlobalAudioTimerManager
     
 }
