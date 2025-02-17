@@ -11,7 +11,7 @@ import Combine
 
 
 
-struct PlayView: View {
+struct PlayView: View, Hashable {
     
     var intensity: Int
     @State private var backgroundColor: Color = .clear // Initialize with a default value (e.g., .clear)
@@ -151,6 +151,7 @@ struct PlayView: View {
         var currentTime = 0
         let avgInterval = 420 / (defensiveLinebreaks + scrums + lineouts + offensiveLinebreaks)
         
+        
         // Function to add events with optional delay
         func addEvent(_ event: String, delay: Int = 0) {
             currentTime += delay
@@ -229,6 +230,8 @@ struct PlayView: View {
         
         return timeline.sorted { $0.0 < $1.0 }
     }
+    
+
     
     /*
      Precondition:

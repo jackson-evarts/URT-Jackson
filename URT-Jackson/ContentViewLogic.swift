@@ -78,6 +78,9 @@ struct JustifiedText: View {
 }
 
 // Reusable navigation button using NavigationPath
+/*
+ 
+ // OLD CUSTOM NAV BUTTON
 struct CustomNavButton: View {
     let text: String
     let destinationID: String
@@ -99,6 +102,31 @@ struct CustomNavButton: View {
                         .stroke(Color.charcoalGrey, lineWidth: 5)
                 )
                 .padding(.horizontal, UIScreen.main.bounds.width * 0.05) // Dynamic horizontal padding
+        }
+    }
+}
+ 
+ */
+
+// A reusable button component for navigation
+struct CustomNavButton: View {
+    let text: String                // Text displayed on the button
+    let action: () -> Void         // Closure to handle button action (e.g., navigate)
+
+    var body: some View {
+        Button(action: action) {   // Execute the passed closure when clicked
+            Text(text)
+                .font(.custom("Futura", size: 24))
+                .foregroundColor(.lightGrey)
+                .padding()
+                .frame(maxWidth: .infinity)
+                .background(Color.primaryGold)
+                .cornerRadius(10)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.charcoalGrey, lineWidth: 5)
+                )
+                .padding(.horizontal, UIScreen.main.bounds.width * 0.05)
         }
     }
 }
