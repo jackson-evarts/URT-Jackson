@@ -25,7 +25,7 @@ struct BroncoWorkoutsView: View {
     
     @State private var selectedIndex: Int = 0
     @EnvironmentObject var audioTimerManager: GlobalAudioTimerManager
-    
+
     var body: some View {
         NavigationStack {
             

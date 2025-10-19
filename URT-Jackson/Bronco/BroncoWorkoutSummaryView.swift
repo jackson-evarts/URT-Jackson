@@ -9,8 +9,10 @@ import SwiftUI
 
 struct BroncoWorkoutSummaryView: View {
     let splits: [String]
-    @Environment(\.dismiss) var dismiss // Used to help navigate back on triple click
+    @Environment(\.dismiss) var dismiss
     let workout: String
+    // Binding used to signal the parent PlayView to also dismiss when returning to workout selection
+    @Binding var dismissToWorkoutSelection: Bool
 
     var body: some View {
         
@@ -30,9 +32,9 @@ struct BroncoWorkoutSummaryView: View {
                 
                 
                 Button(action: {
-                    // TODO: [Bug] I need to use the NavigationPath stuff in order to remove two screens 😪 I guess it's time for me to finally figure this shit out smh
-                    dismiss()
-                    dismiss()
+                    // Two-step dismissal to return to BroncoWorkoutsView:
+                    dismiss() // 1. Dismiss this SummaryView
+                    dismissToWorkoutSelection = true // 2. Signal PlayView to also dismiss via binding
                 }) {
                     Text("Return to Workout Selection")
                         .font(.custom("Futura", size: 24))
@@ -74,6 +76,6 @@ struct BroncoWorkoutSummaryView: View {
 
 
 #Preview {
-    BroncoWorkoutSummaryView(splits: ["00:50","00:43","00:51","00:43","1:02"], workout: "1-1-1-1-1")
+    BroncoWorkoutSummaryView(splits: ["00:50","00:43","00:51","00:43","1:02"], workout: "1-1-1-1-1", dismissToWorkoutSelection: .constant(false))
         .environmentObject(GlobalAudioTimerManager())
 }

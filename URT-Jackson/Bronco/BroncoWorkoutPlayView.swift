@@ -10,15 +10,17 @@ import SwiftUI
 struct BroncoWorkoutPlayView: View {
     let selectedWorkout: String
     // TODO: [Idea] Switch that you can choose to have the stopwatch vertical or horizontal on the screen. This should be remembered by the app so the user only changes it once and then it is forever stored by the app as a default.
-    
+
     @State private var backgroundColor: Color = .lightGrey // Initialize with a default value (e.g., .clear)
     @Environment(\.dismiss) var dismiss // Used to help navigate back on triple click
     @EnvironmentObject var audioTimerManager: GlobalAudioTimerManager // Access global manager
-    
+
     @State private var timeAtBeep: Int = 0
-    
+
     @State private var eventTimer: Timer?
     @State private var showSummary: Bool = false
+    // Used to coordinate two-level navigation dismissal: when SummaryView sets this to true, this view will also dismiss
+    @State private var dismissToWorkoutSelection: Bool = false
 
     @State private var splits: [String] = [] // List to hold saved split times
     
@@ -33,8 +35,7 @@ struct BroncoWorkoutPlayView: View {
     
     
     var body: some View {
-        NavigationStack{
-            ZStack{
+        ZStack{
                 backgroundColor.edgesIgnoringSafeArea(.all)
                 VStack{
                     
@@ -89,18 +90,20 @@ struct BroncoWorkoutPlayView: View {
                     
                     
                     
-                    
+
                 } // End VStack
             } // End ZStack
-        } // End NavigationStack
         .onAppear{
-            
+            print("========== BRONCO WORKOUT STARTED ==========")
+            print("Selected workout: \(selectedWorkout)")
+
             // Start the timer immediately as the screen is brought up
             audioTimerManager.startTimer()
-            
+
             let list = buildWorkout(workout: selectedWorkout)
             eventManagement(workoutEvents: list)
             print("Workout list build: \n\(buildWorkout(workout: selectedWorkout))")
+            print("===========================================")
             
             
             // Initialize the audio session
@@ -112,23 +115,31 @@ struct BroncoWorkoutPlayView: View {
                 backgroundColor = Color.black
             }
         }
+        // Navigate to the summary view when showSummary becomes true
         .navigationDestination(isPresented: $showSummary) {
-            BroncoWorkoutSummaryView(splits: splits, workout: selectedWorkout)
+            BroncoWorkoutSummaryView(splits: splits, workout: selectedWorkout, dismissToWorkoutSelection: $dismissToWorkoutSelection)
+        }
+        // Listen for the signal from SummaryView to dismiss this PlayView as well
+        // This enables returning two views back to BroncoWorkoutsView
+        .onChange(of: dismissToWorkoutSelection) { _, newValue in
+            if newValue {
+                dismiss() // Dismiss PlayView to go back to WorkoutsView
+            }
         }
         .navigationBarBackButtonHidden(true)
         .onTapGesture(count: 3) { // Detect triple tap
             audioTimerManager.stopTimer()
             eventTimer?.invalidate()
             eventTimer = nil // Clean up
-            
+
             showSummary = true
         }
         .onTapGesture(count: 1) { // Detect single tap
             // TODO: [Under Construction Feature] Make it so on a single tap the "Time on Current Phase" is saved and displayed on the current screen, and on the final page when the app is saying congratulations.
-            
+
             splits.append(currentPhaseFormattedTime) // Save the current phase time
             print("Saved split: \(currentPhaseFormattedTime)")
-            
+
         }
         .onDisappear() {
             audioTimerManager.stopTimer()
@@ -247,5 +258,5 @@ struct BroncoWorkoutPlayView: View {
 #Preview {
     BroncoWorkoutPlayView(selectedWorkout: "1-1-1-1-1-1")
         .environmentObject(GlobalAudioTimerManager()) // Provide the environment object for preview
-    
+
 }
