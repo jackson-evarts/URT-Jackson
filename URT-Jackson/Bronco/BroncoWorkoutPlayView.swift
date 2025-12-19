@@ -23,8 +23,16 @@ struct BroncoWorkoutPlayView: View {
     @State private var dismissToWorkoutSelection: Bool = false
 
     @State private var splits: [String] = [] // List to hold saved split times
-    
-    
+
+
+    // Computed property to calculate total number of sets in the workout
+    private var totalSetsInWorkout: Int {
+        return selectedWorkout
+            .split(separator: "-")
+            .count
+    }
+
+
     // Computed property for `currentPhaseFormattedTime`
     private var currentPhaseFormattedTime: String {
         let elapsed = audioTimerManager.elapsedTime - timeAtBeep
@@ -139,6 +147,15 @@ struct BroncoWorkoutPlayView: View {
 
             splits.append(currentPhaseFormattedTime) // Save the current phase time
             print("Saved split: \(currentPhaseFormattedTime)")
+
+            // Automatically show summary if all sets are completed
+            if splits.count >= totalSetsInWorkout {
+                audioTimerManager.stopTimer()
+                eventTimer?.invalidate()
+                eventTimer = nil
+                showSummary = true
+                print("All sets completed! Showing summary automatically.")
+            }
 
         }
         .onDisappear() {
